@@ -21,7 +21,8 @@ $ cd poino
 
 3. [openjtalk-wasm](https://github.com/KoharuYuzuki/openjtalk-wasm)をビルドし、openjtalk.jsとopenjtalk.wasmを次の場所に配置します。
 ```
-./openjtalk
+./openjtalk/openjtalk.js
+./openjtalk/openjtalk.wasm
 ```
 
 4. 次のコマンドを実行します。
