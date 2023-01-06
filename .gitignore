@@ -5,7 +5,6 @@ dist/*
 build/*
 renderer/dist/*
 
-openjtalk/hts_voice_nitech_jp_atr503_m001-1.05/*
-openjtalk/open_jtalk_dic_utf_8-1.11/*
+openjtalk/*
 
 .DS_Store
