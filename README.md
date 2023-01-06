@@ -21,9 +21,7 @@
 3. 次のコマンドを実行します。
 ```
 $ npm install
-$ cd renderer
-$ npm install
-$ cd ..
+$ npm install --prefix renderer
 $ ./build.sh
 ```
 
