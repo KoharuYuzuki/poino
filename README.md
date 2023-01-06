@@ -7,7 +7,7 @@
 ## ビルド
 ビルド環境はmacOSのみを想定しています。
 
-1. Dictionary for Open JTalk version 1.11 (UTF-8) と HTS voice version 1.05 をダウンロード・展開し、次の位置に配置します。
+1. Dictionary for Open JTalk version 1.11 (UTF-8) と HTS voice version 1.05 をダウンロード・展開し、次の場所に配置します。
 ```
 ./openjtalk/open_jtalk_dic_utf_8-1.11
 ./openjtalk/hts_voice_nitech_jp_atr503_m001-1.05
