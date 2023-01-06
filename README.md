@@ -13,7 +13,12 @@
 ./openjtalk/hts_voice_nitech_jp_atr503_m001-1.05
 ```
 
-2. 次のコマンドを実行します。
+2. [openjtalk-wasm](https://github.com/KoharuYuzuki/openjtalk-wasm)をビルドし、openjtalk.jsとopenjtalk.wasmを次の場所に配置します。
+```
+./openjtalk
+```
+
+3. 次のコマンドを実行します。
 ```
 $ npm install
 $ cd renderer
@@ -22,4 +27,4 @@ $ cd ..
 $ ./build.sh
 ```
 
-3. `./dist`にビルドされたソフトウェアが出力されます。
+4. `./dist`にビルドされたソフトウェアが出力されます。
