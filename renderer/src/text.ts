@@ -61,10 +61,10 @@ export class Text {
     this.text      = text
     this.selected  = false
     this.labels    = labels
-    this.speed     = (speed > 0)    ? speed    : -1
-    this.volume    = (volume > 0)   ? volume   : -1
-    this.pitchMax  = (pitchMax > 0) ? pitchMax : -voice.pitch.max
-    this.pitchMin  = (pitchMin > 0) ? pitchMin : -voice.pitch.min
+    this.speed     = (speed > 0)     ? speed    : -1
+    this.volume    = (volume >= 0)   ? volume   : -1
+    this.pitchMax  = (pitchMax >= 0) ? pitchMax : -voice.pitch.max
+    this.pitchMin  = (pitchMin >= 0) ? pitchMin : -voice.pitch.min
     this.voiceId   = voice.id
     this.cacheFile = ''
   }
