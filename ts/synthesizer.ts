@@ -387,7 +387,7 @@ export class Synthesizer {
   }
 
   genSilence(length: number) {
-    const size = Math.round(this.sampleRate * length)
+    const size = Math.round(this.sampleRate * length / 1000)
     return new Array(size).fill(0)
   }
 
