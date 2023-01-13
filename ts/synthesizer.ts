@@ -360,22 +360,29 @@ export class Synthesizer {
       return wave
     })
 
-    const wave = waves.flat().map((x) => (Number.isNaN(x)) ? 0 : x)
+    const waveLen = waves.reduce((sum, wave) => sum + wave.length, 0)
+    const header = this.genWavHeader(waveLen)
 
-    const header = this.genWavHeader(wave.length)
-    const data = new Int8Array(Float32Array.from(wave).buffer)
+    const nanRemovedWaves = waves.map((wave) => {
+      return wave.map((x) => (Number.isNaN(x)) ? 0 : x)
+    })
 
-    const wav = Uint8Array.from([
-      ...header,
-      ...data
-    ])
+    const wavData = [
+      Uint8Array.from(header),
+      ...nanRemovedWaves.map((wave) => {
+        return Uint8Array.from(
+          new Int8Array(Float32Array.from(wave).buffer)
+        )
+      })
+    ]
 
     const filePath = path.join(this.tmpDir, `${randomUUID()}.tmp`)
 
-    return new Promise((resolve, reject) => {
-      fs.writeFile(filePath, wav)
-      .then(() => resolve(filePath))
-      .catch(reject)
+    return new Promise(async (resolve, reject) => {
+      for (let i = 0; i < wavData.length; i++) {
+        await fs.appendFile(filePath, wavData[i]).catch(reject)
+      }
+      resolve(filePath)
     })
   }
 
