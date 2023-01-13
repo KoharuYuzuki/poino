@@ -7,7 +7,7 @@ import { KVS } from './kvs'
 import { OpenJTalk } from './openjtalk'
 import { VocieManager } from './voice'
 import { Synthesizer } from './synthesizer'
-import { isNumber, isString, isHash } from './utils'
+import { isNumber, isString, isHash, hira2kana, kanaOnly } from './utils'
 
 const appName    = app.getName()
 const version    = app.getVersion()
@@ -166,6 +166,10 @@ ipc.on('project:open', async (overwriteAlert, reply) => {
       {
         name: 'poino project',
         extensions: ['.ppj']
+      },
+      {
+        name: 'UATU project',
+        extensions: ['.ust']
       }
     ],
     properties: [
@@ -173,33 +177,171 @@ ipc.on('project:open', async (overwriteAlert, reply) => {
       'createDirectory'
     ]
   })
-  .then((result) => {
-    if (result.canceled) return
+  .then((result): Promise<string | Buffer> => {
+    if (result.canceled) return Promise.resolve('')
 
-    projectSavePath = result.filePaths[0]
-    return fs.readFile(projectSavePath, {encoding: 'utf-8'})
+    const filePath = result.filePaths[0]
+    const isPPJ = (path.extname(filePath) === '.ppj')
+
+    projectSavePath = isPPJ ? filePath : ''
+
+    return (
+      isPPJ ?
+      fs.readFile(filePath, {encoding: 'utf-8'}) :
+      fs.readFile(filePath)
+    )
   })
-  .then((json) => {
-    if (!json) return
+  .then((result) => {
+    if (!projectSavePath) {
+      const ustBinary = result
 
-    try {
-      const data = JSON.parse(json)
+      return ipc.send(mainWindow, 'ust:decode', ustBinary)
+      .then((ust: string) => {
+        const notesStr = ust.split(new RegExp('\[#[0-9]+\]'))
 
-      if (!(
-        ('data' in data) && isString(data.data) &&
-        ('hash' in data) && isString(data.hash)
-      )) {
-        return Promise.reject('無効なプロジェクトファイルです')
+        const tones = [
+          27.500,
+          29.135,
+          30.868,
+          32.703,
+          34.648,
+          36.708,
+          38.891,
+          41.203,
+          43.654,
+          46.249,
+          48.999,
+          51.913
+        ].map((tone) => {
+          return [
+            tone * 1,
+            tone * 2,
+            tone * 4,
+            tone * 8,
+            tone * 16,
+            tone * 32,
+            tone * 64,
+            tone * 128
+          ]
+        }).flat().sort((a, b) => a - b)
+
+        const regexpBpm     = new RegExp('^Tempo=([0-9]+\.*[0-9]*)')
+        const regexpLength  = new RegExp('^Length=([0-9]+)')
+        const regexpLyric   = new RegExp('^Lyric=(.+)')
+        const regexpNoteNum = new RegExp('^NoteNum=([0-9]+)')
+
+        let bpm: number | null = null
+
+        const notes = notesStr.map((note) => {
+          const entries = note.split(new RegExp('(\r\n|\n|\r)'))
+
+          let length:  number | null = null
+          let lyric:   string | null = null
+          let noteNum: number | null = null
+
+          entries.forEach((entry) => {
+            if (bpm === null) {
+              const result = regexpBpm.exec(entry)
+              if (result !== null) {
+                bpm = Number(result[1])
+              }
+            }
+
+            if (length === null) {
+              const result = regexpLength.exec(entry)
+              if (result !== null) {
+                length = Number(result[1])
+              }
+            }
+
+            if (lyric === null) {
+              const result = regexpLyric.exec(entry)
+              if (result !== null) {
+                lyric = result[1]
+              }
+            }
+
+            if (noteNum === null) {
+              const result = regexpNoteNum.exec(entry)
+              if (result !== null) {
+                noteNum = Number(result[1])
+              }
+            }
+          })
+
+          return {
+            length,
+            lyric,
+            noteNum
+          }
+        })
+
+        const labels = notes.map((note) => {
+          let kana
+          let accent
+          let length
+
+          if ((note.lyric === null) || (note.lyric === 'R')) {
+            kana = '、'
+          } else {
+            const result = kanaOnly(hira2kana(note.lyric))
+            kana = (result === '') ? '、' : result
+          }
+
+          if (note.noteNum === null) {
+            accent = 0
+          } else {
+            const index = note.noteNum - 1 - 20
+            const pitchMax = 5000
+            accent = ((index > 0) || (index < tones.length)) ? (tones[index] / pitchMax) : 0
+          }
+
+          if ((note.length === null) || (bpm === null)) {
+            length = 0
+          } else {
+            length = Math.round((60 * 1000 / bpm) * (note.length / 480))
+          }
+
+          return {
+            kana,
+            accent,
+            length
+          }
+        })
+
+        project = [{
+          text:     '<試験機能> 注意: テキストやパラメーターを変更しないでください',
+          labels:   labels,
+          speed:    1.0,
+          volume:   0.5,
+          pitchMax: 5000,
+          pitchMin: 0,
+          voiceId:  'laychie'
+        }]
+      })
+    } else {
+      const json = result
+      if (!json) return
+
+      try {
+        const data = JSON.parse(json as string)
+
+        if (!(
+          ('data' in data) && isString(data.data) &&
+          ('hash' in data) && isString(data.hash)
+        )) {
+          return Promise.reject('無効なプロジェクトファイルです')
+        }
+
+        const hash = createHash('md5').update(data.data + projectSalt).digest('hex')
+        if (hash === data.hash) {
+          project = JSON.parse(data.data)
+        } else {
+          return Promise.reject('不正なプロジェクトファイルです')
+        }
+      } catch (e) {
+        return Promise.reject(e)
       }
-
-      const hash = createHash('md5').update(data.data + projectSalt).digest('hex')
-      if (hash === data.hash) {
-        project = JSON.parse(data.data)
-      } else {
-        return Promise.reject('不正なプロジェクトファイルです')
-      }
-    } catch (e) {
-      return Promise.reject(e)
     }
   })
   .catch((err) => {
