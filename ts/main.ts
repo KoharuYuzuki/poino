@@ -178,7 +178,7 @@ ipc.on('project:open', async (overwriteAlert, reply) => {
     ]
   })
   .then((result): Promise<string | Buffer> => {
-    if (result.canceled) return Promise.resolve('')
+    if (result.canceled) return Promise.reject('読み込みがキャンセルされました')
 
     const filePath = result.filePaths[0]
     const isPPJ = (path.extname(filePath) === '.ppj')
