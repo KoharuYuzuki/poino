@@ -165,11 +165,11 @@ ipc.on('project:open', async (overwriteAlert, reply) => {
     filters: [
       {
         name: 'poino project',
-        extensions: ['.ppj']
+        extensions: ['ppj']
       },
       {
         name: 'UATU project',
-        extensions: ['.ust']
+        extensions: ['ust']
       }
     ],
     properties: [
@@ -369,7 +369,7 @@ ipc.on('project:save', ({data, newSave}, reply) => {
         filters: [
           {
             name: 'poino project',
-            extensions: ['.ppj']
+            extensions: ['ppj']
           }
         ],
         properties: [
@@ -441,7 +441,7 @@ ipc.on('wav:export', (files, reply) => {
         filters: [
           {
             name: 'WAV',
-            extensions: ['.wav']
+            extensions: ['wav']
           }
         ],
         properties: [
