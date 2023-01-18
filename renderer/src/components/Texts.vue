@@ -134,6 +134,8 @@
         this.showVoiceSelector = false
       },
       playVoice(all=false) {
+        if (!all && !this.text) return
+
         if (!this.playing) {
           this.playing = true
         } else {
@@ -141,7 +143,6 @@
           return
         }
 
-        if (!all && !this.text) return
         const texts = (all ? this.texts : [this.text as Text])
 
         Promise.all(
@@ -153,7 +154,10 @@
         )
         .then((filePaths) => {
           this.cacheFilePaths = filePaths
-          if (this.cacheFilePaths.length <= 0) return
+          if (this.cacheFilePaths.length <= 0) {
+            this.playing = false
+            return
+          }
 
           const filePath = this.cacheFilePaths[this.playingIndex]
           this.playingIndex = 0
