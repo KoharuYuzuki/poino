@@ -19,11 +19,11 @@ npx electron-builder --win --arm64 --x64
 
 VERSION=$(node -p "require('./package.json').version")
 
-mv -f "$DIST_DIR/poino-mac-arm64.zip" "$DIST_DIR/poino-mac-v$VERSION-AppleSilicon.zip"
-mv -f "$DIST_DIR/poino-mac-x64.zip"   "$DIST_DIR/poino-mac-v$VERSION-Intel.zip"
+mv -f "$DIST_DIR/poino-mac-arm64.zip" "$DIST_DIR/poino-v$VERSION-mac-AppleSilicon.zip"
+mv -f "$DIST_DIR/poino-mac-x64.zip"   "$DIST_DIR/poino-v$VERSION-mac-Intel.zip"
 
-mv -f "$DIST_DIR/poino-win-arm64.zip" "$DIST_DIR/poino-win-v$VERSION-arm64.zip"
-mv -f "$DIST_DIR/poino-win-x64.zip"   "$DIST_DIR/poino-win-v$VERSION-x64.zip"
+mv -f "$DIST_DIR/poino-win-arm64.zip" "$DIST_DIR/poino-v$VERSION-win-arm64.zip"
+mv -f "$DIST_DIR/poino-win-x64.zip"   "$DIST_DIR/poino-v$VERSION-win-x64.zip"
 
 rm -f "$DIST_DIR"/*.blockmap
 rm -rf "$DIST_DIR"/*[^zip]
