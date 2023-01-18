@@ -61,15 +61,30 @@ Promise.all([
     {
       label: appName,
       submenu: [
-        {role: 'quit'}
+        {
+          role: 'quit',
+          label: `${appName} を終了`
+        }
       ]
     }, {
-      label: 'Edit',
+      label: '編集',
       submenu: [
-        {role: 'cut'},
-        {role: 'copy'},
-        {role: 'paste'},
-        {role: 'selectAll'}
+        {
+          role: 'cut',
+          label: '切り取り'
+        },
+        {
+          role: 'copy',
+          label: 'コピー'
+        },
+        {
+          role: 'paste',
+          label: '貼り付け'
+        },
+        {
+          role: 'selectAll',
+          label: 'すべて選択'
+        }
       ]
     }
   ])
