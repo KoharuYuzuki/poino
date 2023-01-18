@@ -61,6 +61,7 @@
         label.accent = Math.round(num * 100) / 100
         target.value = String(label.accent)
         this.text?.cacheClear()
+        if (event.type === 'change') this.updateProject()
       },
       updateLength(event: Event, label: label) {
         if (event.target === null) return
@@ -75,6 +76,10 @@
         label.length = Math.round(num)
         target.value = String(label.length)
         this.text?.cacheClear()
+        if (event.type === 'change') this.updateProject()
+      },
+      updateProject() {
+        window.dispatchEvent(new Event('updateProject'))
       }
     }
   }
@@ -113,6 +118,7 @@
             v-bind:step="accent.step"
             v-bind:value="label.accent"
             v-on:input="(event) => updateAccent(event, label)"
+            v-on:change="(event) => updateAccent(event, label)"
             v-if="showAccent"
           >
           <input
@@ -122,6 +128,7 @@
             v-bind:step="length.step"
             v-bind:value="label.length"
             v-on:input="(event) => updateLength(event, label)"
+            v-on:change="(event) => updateLength(event, label)"
             v-else
           >
         </div>

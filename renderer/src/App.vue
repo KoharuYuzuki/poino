@@ -8,8 +8,7 @@
   export default {
     data() {
       return {
-        text: undefined,
-        speed: undefined
+        text: undefined
       }
     },
     components: {
@@ -24,8 +23,8 @@
 
 <template>
   <Menus/>
-  <Texts @updateText="(x) => text = x" v-bind:speed="speed"/>
-  <Params @updateSpeed="(x) => speed = x" v-bind:text="text"/>
+  <Texts @updateText="(x) => text = x"/>
+  <Params v-bind:text="text"/>
   <Adjusters v-bind:text="text"/>
   <Licenses/>
 </template>

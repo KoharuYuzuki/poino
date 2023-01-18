@@ -55,11 +55,12 @@ export class Text {
     speed    = -1,
     volume   = -1,
     pitchMax = -1,
-    pitchMin = -1
+    pitchMin = -1,
+    selected = false
   ) {
     this.id        = crypto.randomUUID()
     this.text      = text
-    this.selected  = false
+    this.selected  = selected
     this.labels    = labels
     this.speed     = (speed > 0)     ? speed    : -1
     this.volume    = (volume >= 0)   ? volume   : -1
@@ -77,6 +78,7 @@ export class Text {
     .then((labels: label[][] | null) => {
       if (labels === null) return
       this.labels = labels.flat()
+      window.dispatchEvent(new Event('updateProject'))
     })
     .catch(console.error)
   }

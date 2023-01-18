@@ -74,7 +74,10 @@
         this.updateValues()
         this.speed.val = Math.round(num * 100) / 100
         target.value = `${this.speed.val}.0`.slice(0, 3)
-        this.updateText()
+        if (event.type === 'change') {
+          this.updateText()
+          this.updateLabel()
+        }
       },
       updateVolume(event: Event) {
         if (event.target === null) return
@@ -89,7 +92,10 @@
         this.updateValues()
         this.volume.val = Math.round(num * 100) / 100
         target.value = `${this.volume.val}.0`.slice(0, 3)
-        this.updateText()
+        if (event.type === 'change') {
+          this.updateText()
+          this.updateProject()
+        }
       },
       updatePitchMax(event: Event) {
         if (event.target === null) return
@@ -104,7 +110,10 @@
         this.updateValues()
         this.pitchMax.val = Math.round(num)
         target.value = String(this.pitchMax.val)
-        this.updateText()
+        if (event.type === 'change') {
+          this.updateText()
+          this.updateProject()
+        }
       },
       updatePitchMin(event: Event) {
         if (event.target === null) return
@@ -119,7 +128,10 @@
         this.updateValues()
         this.pitchMin.val = Math.round(num)
         target.value = String(this.pitchMin.val)
-        this.updateText()
+        if (event.type === 'change') {
+          this.updateText()
+          this.updateProject()
+        }
       },
       updateValues() {
         const text = this.text
@@ -139,8 +151,13 @@
         text.cacheClear()
         this.voiceId = text.voiceId
       },
-      emitSpeed() {
-        this.$emit('updateSpeed', this.speed.val)
+      updateLabel() {
+        const text = this.text
+        if (!text) return
+        text.text2label()
+      },
+      updateProject() {
+        window.dispatchEvent(new Event('updateProject'))
       }
     },
     watch: {
@@ -180,7 +197,7 @@
         v-bind:value="speed.val"
         v-bind:disabled="!text"
         v-on:input="updateSpeed"
-        v-on:change="emitSpeed"
+        v-on:change="updateSpeed"
       >
     </div>
     <div class="param">
@@ -201,6 +218,7 @@
         v-bind:value="volume.val"
         v-bind:disabled="!text"
         v-on:input="updateVolume"
+        v-on:change="updateVolume"
       >
     </div>
     <div class="param">
@@ -222,6 +240,7 @@
         v-bind:value="pitchMax.val"
         v-bind:disabled="!text"
         v-on:input="updatePitchMax"
+        v-on:change="updatePitchMax"
       >
     </div>
     <div class="param">
@@ -243,6 +262,7 @@
         v-bind:value="pitchMin.val"
         v-bind:disabled="!text"
         v-on:input="updatePitchMin"
+        v-on:change="updatePitchMin"
       >
     </div>
   </div>

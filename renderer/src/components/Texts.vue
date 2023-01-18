@@ -5,12 +5,54 @@
 
   export default {
     created() {
-      (window as any).voices.get()
+      window.addEventListener('updateProject', () => {
+        const filtered = this.texts.filter((text) => text.id === this.text?.id)
+        const selectedId = (filtered.length > 0) ? filtered[0].id : null
+
+        const texts = JSON.parse(JSON.stringify(toRaw(this.texts))).map((text: any) => {
+          const filtered = this.voices.filter((voice) => voice.id === text.voiceId)
+          const voice = (filtered.length > 0) ? filtered[0] : this.voices[0]
+
+          return {
+            voice:    voice,
+            text:     text.text,
+            labels:   text.labels,
+            speed:    text.speed,
+            volume:   text.volume,
+            pitchMax: text.pitchMax,
+            pitchMin: text.pitchMin,
+            selected: (text.id === selectedId)
+          }
+        })
+
+        const isLast = (this.historyIndex === (this.history.length - 1))
+        if (!isLast) {
+          this.history = this.history.slice(0, this.historyIndex + 1)
+        }
+
+        this.history.push(texts)
+        this.historyIndex++
+      })
+
+      window.addEventListener('undo', () => {
+        if (this.historyIndex <= 0) return
+        this.historyIndex--
+        this.loadFromHistory()
+      })
+
+      window.addEventListener('redo', () => {
+        if (this.historyIndex >= (this.history.length - 1)) return
+        this.historyIndex++
+        this.loadFromHistory()
+      })
+
+      ;(window as any).voices.get()
       .then((voices: Voice[]) => {
         if (voices.length <= 0) return
         this.voices = voices
         this.voice = this.voices[0]
         this.texts.push(new Text(this.voice))
+        this.updateProject()
       })
       .catch(console.error)
     },
@@ -27,7 +69,9 @@
       cacheFilePaths: string[]
       opening: boolean
       saving: boolean
-      exporting: boolean
+      exporting: boolean,
+      history: any[][],
+      historyIndex: number
     } {
       return {
         saved: true,
@@ -42,7 +86,9 @@
         cacheFilePaths: [],
         opening: false,
         saving: false,
-        exporting: false
+        exporting: false,
+        history: [] as any[][],
+        historyIndex: -1
       }
     },
     props: {
@@ -56,30 +102,36 @@
         const text = new Text(this.voice)
         this.texts.push(text)
         this.saved = false
+        this.updateProject()
       },
       removeText(text: Text) {
         this.texts = this.texts.filter((x) => x !== text)
-        this.$emit('updateText', undefined)
         this.text = undefined
+        this.emitText()
         this.saved = false
+        this.updateProject()
       },
       selectText(text: Text) {
         this.unselectTexts()
         text.selected = true
-        this.$emit('updateText', text)
         this.text = text
+        this.emitText()
       },
       unselectTexts() {
         this.texts.forEach((text) => text.selected = false)
       },
+      emitText() {
+        this.$emit('updateText', this.text)
+      },
       updateVoice(voice: Voice) {
         this.voice = voice
-        if (this.text) {
-          this.text.voiceId   = voice.id
+        if (this.text && (this.text.voiceId !== voice.id)) {
+          this.text.voiceId = voice.id
           this.text.cacheClear()
+          this.saved = false
+          this.updateProject()
         }
         this.showVoiceSelector = false
-        this.saved = false
       },
       playVoice(all=false) {
         if (!this.playing) {
@@ -128,6 +180,7 @@
 
         this.texts = filtered
         this.saved = false
+        this.updateProject()
       },
       getIcon(voiceId: string) {
         const filtered = this.voices.filter((voice) => voice.id === voiceId)
@@ -161,6 +214,7 @@
 
           this.selectText(this.texts[0])
           this.saved = true
+          this.updateProject()
         })
         .catch(console.error)
         .finally(() => this.opening = false)
@@ -227,6 +281,33 @@
         })
         .catch(console.error)
         .finally(() => this.exporting = false)
+      },
+      updateProject() {
+        window.dispatchEvent(new Event('updateProject'))
+      },
+      loadFromHistory() {
+        const texts = this.history[this.historyIndex]
+        this.texts = texts.map((text) => {
+          return new Text(
+            text.voice,
+            text.text,
+            text.labels,
+            text.speed,
+            text.volume,
+            text.pitchMax,
+            text.pitchMin,
+            text.selected
+          )
+        })
+
+        const filtered = this.texts.filter((x) => x.selected)
+        if (filtered.length > 0) {
+          this.selectText(filtered[0])
+        } else {
+          this.text = undefined
+          this.unselectTexts()
+          this.emitText()
+        }
       }
     },
     watch: {
@@ -246,10 +327,6 @@
           }
         },
         deep: true
-      },
-      speed() {
-        if (!this.text) return
-        this.text.text2label()
       },
       playing() {
         if (this.playing) return

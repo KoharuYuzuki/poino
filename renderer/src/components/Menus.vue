@@ -28,6 +28,16 @@
               id:    'exportAll',
               label: 'すべて書き出し',
               event: 'exportWavAll'
+            },
+            {
+              id:    'undo',
+              label: '元に戻す',
+              event: 'undo'
+            },
+            {
+              id:    'redo',
+              label: 'やり直し',
+              event: 'redo'
             }
           ],
           right: [
