@@ -57,6 +57,7 @@ Promise.all([
   win.loadFile('./renderer/dist/index.html')
   win.setTitle(`${appName} v${version}`)
 
+  const os = process.platform
   const menu = Menu.buildFromTemplate([
     {
       label: appName,
@@ -66,9 +67,24 @@ Promise.all([
           label: `${appName} を終了`
         }
       ]
-    }, {
+    },
+    {
       label: '編集',
       submenu: [
+        {
+          label: '元に戻す',
+          accelerator: (os === 'darwin') ? 'Cmd+Z' : 'Ctrl+Z',
+          click: () => {
+            ipc.send(win, 'project:undo', null)
+          }
+        },
+        {
+          label: 'やり直し',
+          accelerator: (os === 'darwin') ? 'Cmd+Shift+Z' : 'Ctrl+Y',
+          click: () => {
+            ipc.send(win, 'project:redo', null)
+          }
+        },
         {
           role: 'cut',
           label: '切り取り'

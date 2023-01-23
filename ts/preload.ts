@@ -63,6 +63,16 @@ ipc.on('project:isSaved', (_, reply) => {
   window.dispatchEvent(new Event('reqProjectIsSaved'))
 })
 
+ipc.on('project:undo', (_, reply) => {
+  window.dispatchEvent(new Event('undo'))
+  reply(null)
+})
+
+ipc.on('project:redo', (_, reply) => {
+  window.dispatchEvent(new Event('redo'))
+  reply(null)
+})
+
 ipc.on('ust:decode', (binary, reply) => {
   const decoder = new TextDecoder('shift-jis')
   const decoded = decoder.decode(binary)

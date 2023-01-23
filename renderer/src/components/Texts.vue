@@ -46,6 +46,20 @@
         this.loadFromHistory()
       })
 
+      window.addEventListener('beforeinput', (event) => {
+        const inputType = (event as InputEvent).inputType
+
+        if (['historyUndo', 'historyRedo'].includes(inputType)) {
+          event.preventDefault()
+
+          if (inputType === 'historyUndo') {
+            window.dispatchEvent(new Event('undo'))
+          } else if (inputType === 'historyRedo') {
+            window.dispatchEvent(new Event('redo'))
+          }
+        }
+      })
+
       ;(window as any).voices.get()
       .then((voices: Voice[]) => {
         if (voices.length <= 0) return
