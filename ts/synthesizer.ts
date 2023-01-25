@@ -167,8 +167,10 @@ function linspace (start: number, end: number, num: number) {
   while (true) {
     counter++
     const sample = (step * counter) + start
-    if (sample > end) {
-      break
+    if (step >= 0) {
+      if (sample > end) break
+    } else {
+      if (sample < end) break
     }
     samples.push(sample)
   }
