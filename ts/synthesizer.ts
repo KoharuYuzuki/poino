@@ -117,16 +117,17 @@ function fade (wave: number[], inLength: number, outLength: number) {
 
   const inStep = linspace(0, 1, inLength)
   const outStep = linspace(0, 1, outLength)
+  const newWave = [...wave]
 
   for (let i = 0; i < inLength; i++) {
-    wave[i] *= inStep[i]
+    newWave[i] *= inStep[i]
   }
 
   for (let i = 0; i < outLength; i++) {
-    wave[(wave.length - 1) - i] *= outStep[i]
+    newWave[(newWave.length - 1) - i] *= outStep[i]
   }
 
-  return wave
+  return newWave
 }
 
 function fft (x: Complex[], inverse: boolean = false, recursion: boolean = false) {
