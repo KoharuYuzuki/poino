@@ -161,6 +161,8 @@ function fftfreq (length: number, space: number) {
 function linspace (start: number, end: number, num: number) {
   const diff = end - start
   const step = diff / (num - 1)
+  if (step === 0) return []
+
   const samples = [start]
   let counter = 0
 
