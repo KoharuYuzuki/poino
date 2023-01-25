@@ -337,7 +337,7 @@ export class Synthesizer {
         const length        = phoneme.length
         const phonemeVolume = phoneme.volume * volume
 
-        let _wave = envelope2wave(
+        const w = envelope2wave(
           envelope,
           sampleRate,
           f0,
@@ -345,20 +345,20 @@ export class Synthesizer {
           phonemeVolume
         )
 
-        _wave = fade(
-          _wave,
+        const faded = fade(
+          w,
           Math.round(this.sampleRate * (phoneme.fadeInMs as number) / 1000),
           Math.round(this.sampleRate * (phoneme.fadeOutMs as number) / 1000)
         )
 
         const overlapped = wave.slice(wave.length - prevOverlapLen).map((x, i) => {
-          return (i <= _wave.length) ? x + _wave[i] : x
+          return (i <= faded.length) ? x + faded[i] : x
         })
 
         wave = [
           ...wave.slice(0, wave.length - prevOverlapLen),
           ...overlapped,
-          ..._wave.slice(prevOverlapLen)
+          ...faded.slice(prevOverlapLen)
         ]
         prevOverlapLen = Math.round(this.sampleRate * (phoneme.overlapMs as number) / 1000)
       }
