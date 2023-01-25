@@ -159,6 +159,8 @@ function fftfreq (length: number, space: number) {
 }
 
 function linspace (start: number, end: number, num: number) {
+  if (num <= 0) return []
+
   const diff = end - start
   const step = diff / (num - 1)
   if (step === 0) return []
