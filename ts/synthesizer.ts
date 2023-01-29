@@ -51,13 +51,7 @@ function envelope2wave (
 ) {
   if (length <= 0) return []
 
-  const bufferSizeList = [...new Array(20)].map((_, i) => 2 ** i)
-  const originalSize = Math.round(sampleRate * length / 1000)
-
-  const filtered = bufferSizeList.filter((x) => x >= originalSize)
-  if (filtered.length <= 0) return []
-  const bufferSize = filtered[0]
-
+  const bufferSize = Math.round(sampleRate * length / 1000)
   const xList: number[] = []
   const yList: number[] = []
 
@@ -94,10 +88,7 @@ function envelope2wave (
     data[index] += value
   }
 
-  let wave =
-    fft(data.map((x) => new Complex(x, 1)), true)
-    .map((x) => x.real)
-    .slice(0, originalSize)
+  let wave = fft(data.map((x) => new Complex(x, 1)), true).map((x) => x.real)
 
   const waveMax = wave.reduce((a, b) => Math.max(a, b))
   if (waveMax > 0) {
