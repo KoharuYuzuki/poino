@@ -1,0 +1,776 @@
+{
+  "id": "layney",
+  "name": "レイニー",
+  "ruby": "れいにー",
+  "icon": "data:image/jpeg;base64,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",
+  "pitch": {
+    "min": 380,
+    "max": 420
+  },
+  "phonemes": {
+    "a": [[0,0],[5,1],[8,0.59],[12,0.5],[16,0.56],[19,0.75],[24,0.45],[28,0.26],[32,0.16],[36,0.1],[44,0.05],[52,0.06],[57,0.1],[64,0.21],[70,0.26],[78,0.3],[85,0.29],[93,0.24],[101,0.14],[110,0.05],[120,0]],
+    "i": [[0,0],[5,0.49],[7,1],[8,0.4],[11,0.25],[17,0.13],[22,0.08],[28,0.05],[36,0.07],[43,0.11],[47,0.21],[49,0.32],[53,0.2],[57,0.15],[60,0.2],[66,0.27],[73,0.29],[81,0.27],[88,0.22],[94,0.15],[101,0.07],[109,0.02],[120,0]],
+    "u": [[0,0],[4,0.87],[8,1],[10,0.4],[12,0.24],[18,0.19],[23,0.44],[28,0.11],[36,0.07],[43,0.11],[47,0.21],[50,0.4],[53,0.2],[57,0.15],[60,0.2],[66,0.27],[73,0.29],[81,0.25],[87,0.16],[94,0.36],[101,0.07],[109,0.02],[120,0]],
+    "e": [[0,0],[5,0.85],[8,1],[10,0.41],[12,0.31],[15,0.2],[21,0.12],[28,0.08],[36,0.07],[43,0.11],[47,0.21],[53,0.5],[57,0.31],[62,0.36],[67,0.39],[74,0.38],[82,0.31],[87,0.17],[94,0.08],[102,0.03],[109,0.02],[120,0]],
+    "o": [[0,0],[7,1],[11,0.6],[13,0.56],[18,0.6],[21,0.75],[26,0.28],[30,0.18],[37,0.09],[44,0.05],[53,0.06],[60,0.42],[66,0.31],[74,0.29],[84,0.23],[92,0.13],[101,0.06],[110,0.03],[120,0]],
+    "k": [[0,0],[8,0.18],[16,0.25],[20,0.44],[24,1],[28,0.37],[32,0.16],[36,0.08],[40,0.06],[44,0.08],[52,0.09],[60,0.22],[64,0.36],[68,0.22],[73,0.13],[78,0.2],[84,0.5],[90,0.19],[98,0.09],[108,0.04],[120,0]],
+    "s": [[0,0],[4,0.02],[13,0.2],[18,0.12],[26,0.22],[36,0.13],[43,0.35],[48,0.23],[54,0.55],[59,0.35],[64,0.77],[70,0.49],[75,0.83],[80,0.6],[84,1],[89,0.63],[94,0.88],[100,0.55],[102,0.62],[109,0.13],[120,0]],
+    "t": [[0,0],[4,0.81],[8,0.53],[12,1],[16,0.33],[20,0.18],[24,0.5],[28,0.1],[32,0.08],[39,0.15],[44,0.29],[48,0.47],[52,0.29],[56,0.75],[60,0.47],[65,0.32],[73,0.43],[77,0.81],[82,0.57],[91,0.91],[100,0.59],[106,0.92],[113,0.23],[120,0]],
+    "n": [[0,0],[4,1],[8,0.46],[12,0.16],[16,0.1],[30,0.04],[48,0.03],[64,0.02],[120,0]],
+    "h": [[0,0],[8,0.38],[12,1],[16,0.38],[20,0.3],[24,0.91],[28,0.2],[32,0.11],[40,0.07],[44,0.19],[48,0.08],[52,0.08],[56,0.2],[60,0.1],[65,0.24],[71,0.07],[78,0.17],[88,0.13],[93,0.03],[104,0.07],[110,0.02],[120,0]],
+    "m": [[0,0],[2,0.39],[4,1],[6,0.32],[11,0.23],[16,0.09],[32,0.04],[53,0.02],[120,0]],
+    "y": [[0,0],[4,1],[8,0.53],[12,0.34],[20,0.09],[24,0.12],[28,0.24],[32,0.48],[40,0.27],[44,0.45],[52,0.13],[56,0.25],[60,0.08],[64,0.05],[120,0]],
+    "r": [[0,0],[4,1],[16,0.17],[20,0.14],[24,0.32],[28,0.13],[32,0.07],[36,0.08],[40,0.13],[44,0.29],[52,0.17],[71,0.08],[83,0.12],[92,0.07],[120,0]],
+    "w": [[0,0],[4,1],[12,0.32],[16,0.22],[20,0.22],[24,0.33],[32,0.09],[40,0.11],[44,0.19],[52,0.63],[60,0.18],[73,0.08],[90,0.04],[120,0]],
+    "g": [[0,0],[4,0.72],[8,0.63],[12,0.57],[16,0.6],[20,0.72],[24,1],[28,0.26],[32,0.16],[36,0.1],[44,0.05],[52,0.06],[57,0.1],[64,0.21],[69,0.11],[76,0.1],[86,0.26],[91,0.13],[98,0.16],[106,0.04],[120,0]],
+    "z": [[0,0],[4,0.34],[9,0.22],[16,0.16],[22,0.34],[28,0.15],[37,0.09],[42,0.25],[47,0.12],[56,0.28],[60,0.14],[64,0.42],[70,0.18],[75,0.56],[77,0.46],[83,1],[88,0.67],[96,0.94],[100,0.61],[103,0.74],[107,0.18],[113,0.05],[120,0]],
+    "d": [[0,0],[4,0.78],[6,0.31],[9,0.23],[12,0.42],[16,0.16],[24,0.16],[28,0.19],[32,0.31],[36,0.15],[40,0.26],[44,0.44],[48,0.31],[52,0.25],[60,0.41],[64,0.63],[67,0.32],[75,0.6],[83,1],[88,0.69],[92,0.76],[96,0.47],[99,0.56],[103,0.3],[109,0.1],[120,0]],
+    "b": [[0,0],[4,1],[17,0.36],[23,0.19],[27,0.11],[36,0.03],[52,0.04],[65,0.09],[76,0.24],[88,0.12],[100,0.06],[120,0]],
+    "p": [[0,0],[4,1],[8,0.59],[12,0.62],[16,0.31],[20,0.33],[28,0.17],[36,0.09],[52,0.3],[56,0.3],[60,0.26],[64,0.29],[72,0.18],[85,0.08],[98,0.03],[120,0]],
+    "v": [[0,0],[4,1],[17,0.36],[23,0.19],[27,0.11],[36,0.03],[120,0]],
+    "silence": [[0,0],[120,0]]
+  },
+  "voices": {
+    "ア": [
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "イ": [
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ウ": [
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "エ": [
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "オ": [
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "カ": [
+      {"phoneme": "k", "length": 50, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "キ": [
+      {"phoneme": "k", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ク": [
+      {"phoneme": "k", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ケ": [
+      {"phoneme": "k", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "コ": [
+      {"phoneme": "k", "length": 50, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "サ": [
+      {"phoneme": "s", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "シ": [
+      {"phoneme": "s", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ス": [
+      {"phoneme": "s", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "セ": [
+      {"phoneme": "s", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ソ": [
+      {"phoneme": "s", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "タ": [
+      {"phoneme": "t", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "チ": [
+      {"phoneme": "t", "length": 80, "volume": 0.2, "fade": {"in": "20%", "out": "80%"}, "overlap": "50%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ツ": [
+      {"phoneme": "t", "length": 80, "volume": 0.2, "fade": {"in": "20%", "out": "80%"}, "overlap": "50%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "テ": [
+      {"phoneme": "t", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ト": [
+      {"phoneme": "t", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ナ": [
+      {"phoneme": "n", "length": 80, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ニ": [
+      {"phoneme": "n", "length": 80, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヌ": [
+      {"phoneme": "n", "length": 80, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ネ": [
+      {"phoneme": "n", "length": 80, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ノ": [
+      {"phoneme": "n", "length": 80, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ハ": [
+      {"phoneme": "h", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヒ": [
+      {"phoneme": "h", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "フ": [
+      {"phoneme": "h", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヘ": [
+      {"phoneme": "h", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ホ": [
+      {"phoneme": "h", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "マ": [
+      {"phoneme": "m", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ミ": [
+      {"phoneme": "m", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ム": [
+      {"phoneme": "m", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "メ": [
+      {"phoneme": "m", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "モ": [
+      {"phoneme": "m", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ヤ": [
+      {"phoneme": "y", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ユ": [
+      {"phoneme": "y", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヨ": [
+      {"phoneme": "y", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ラ": [
+      {"phoneme": "r", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "リ": [
+      {"phoneme": "r", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ル": [
+      {"phoneme": "r", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "レ": [
+      {"phoneme": "r", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ロ": [
+      {"phoneme": "r", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ワ": [
+      {"phoneme": "w", "length": 70, "volume": 0.3, "fade": {"in": "70%", "out": "30%"}, "overlap": "30%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ウィ": [
+      {"phoneme": "w", "length": 70, "volume": 0.3, "fade": {"in": "70%", "out": "30%"}, "overlap": "30%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ウェ": [
+      {"phoneme": "w", "length": 70, "volume": 0.3, "fade": {"in": "70%", "out": "30%"}, "overlap": "30%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ウォ": [
+      {"phoneme": "w", "length": 70, "volume": 0.3, "fade": {"in": "70%", "out": "30%"}, "overlap": "30%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ン": [
+      {"phoneme": "n", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ガ": [
+      {"phoneme": "g", "length": 50, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ギ": [
+      {"phoneme": "g", "length": 80, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "グ": [
+      {"phoneme": "g", "length": 80, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ゲ": [
+      {"phoneme": "g", "length": 80, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ゴ": [
+      {"phoneme": "g", "length": 50, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ザ": [
+      {"phoneme": "z", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ジ": [
+      {"phoneme": "z", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ズ": [
+      {"phoneme": "z", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ゼ": [
+      {"phoneme": "z", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ゾ": [
+      {"phoneme": "z", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ダ": [
+      {"phoneme": "d", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ディ": [
+      {"phoneme": "d", "length": 80, "volume": 0.2, "fade": {"in": "20%", "out": "80%"}, "overlap": "50%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ドゥ": [
+      {"phoneme": "d", "length": 80, "volume": 0.2, "fade": {"in": "20%", "out": "80%"}, "overlap": "50%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "デ": [
+      {"phoneme": "d", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ド": [
+      {"phoneme": "d", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "バ": [
+      {"phoneme": "b", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ビ": [
+      {"phoneme": "b", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ブ": [
+      {"phoneme": "b", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ベ": [
+      {"phoneme": "b", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ボ": [
+      {"phoneme": "b", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "パ": [
+      {"phoneme": "p", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ピ": [
+      {"phoneme": "p", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "プ": [
+      {"phoneme": "p", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ペ": [
+      {"phoneme": "p", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ポ": [
+      {"phoneme": "p", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ヴァ": [
+      {"phoneme": "v", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヴィ": [
+      {"phoneme": "v", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヴ": [
+      {"phoneme": "v", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヴェ": [
+      {"phoneme": "v", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヴォ": [
+      {"phoneme": "v", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "キャ": [
+      {"phoneme": "k", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "キュ": [
+      {"phoneme": "k", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "キェ": [
+      {"phoneme": "k", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "キョ": [
+      {"phoneme": "k", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "50%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "シャ": [
+      {"phoneme": "s", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "スィ": [
+      {"phoneme": "s", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "シュ": [
+      {"phoneme": "s", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "シェ": [
+      {"phoneme": "s", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ショ": [
+      {"phoneme": "s", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "チャ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "チュ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "チェ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "チョ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ツァ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ツィ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "トゥ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ツェ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ツォ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "テャ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": 50, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 30, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ティ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": 50, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 30, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "テュ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": 50, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 30, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "テョ": [
+      {"phoneme": "t", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": 50, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 30, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ニャ": [
+      {"phoneme": "n", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ニュ": [
+      {"phoneme": "n", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ニェ": [
+      {"phoneme": "n", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ニョ": [
+      {"phoneme": "n", "length": 60, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ヒャ": [
+      {"phoneme": "h", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヒュ": [
+      {"phoneme": "h", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヒェ": [
+      {"phoneme": "h", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ヒョ": [
+      {"phoneme": "h", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ミャ": [
+      {"phoneme": "m", "length": 40, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ミュ": [
+      {"phoneme": "m", "length": 40, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ミェ": [
+      {"phoneme": "m", "length": 40, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ミョ": [
+      {"phoneme": "m", "length": 40, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "リャ": [
+      {"phoneme": "r", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "リュ": [
+      {"phoneme": "r", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "リェ": [
+      {"phoneme": "r", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "リョ": [
+      {"phoneme": "r", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ギャ": [
+      {"phoneme": "g", "length": 50, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ギュ": [
+      {"phoneme": "g", "length": 50, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ギェ": [
+      {"phoneme": "g", "length": 50, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ギョ": [
+      {"phoneme": "g", "length": 50, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ジャ": [
+      {"phoneme": "z", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ズィ": [
+      {"phoneme": "z", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ジュ": [
+      {"phoneme": "z", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ジェ": [
+      {"phoneme": "z", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "i", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ジョ": [
+      {"phoneme": "z", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ヂャ": [
+      {"phoneme": "d", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}, "overlap": "40%"}
+    ],
+    "ヂュ": [
+      {"phoneme": "d", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}, "overlap": "40%"}
+    ],
+    "ヂョ": [
+      {"phoneme": "d", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}, "overlap": "40%"}
+    ],
+
+
+
+    "ビャ": [
+      {"phoneme": "b", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ビュ": [
+      {"phoneme": "b", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ビェ": [
+      {"phoneme": "b", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ビョ": [
+      {"phoneme": "b", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "30%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ピャ": [
+      {"phoneme": "p", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ピュ": [
+      {"phoneme": "p", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "u", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ピェ": [
+      {"phoneme": "p", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "ピョ": [
+      {"phoneme": "p", "length": 20, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "y", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "ファ": [
+      {"phoneme": "h", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "u", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "フィ": [
+      {"phoneme": "h", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "u", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "i", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "フェ": [
+      {"phoneme": "h", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "u", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "フォ": [
+      {"phoneme": "h", "length": 60, "volume": 0.3, "fade": {"in": "20%", "out": "80%"}, "overlap": "20%"},
+      {"phoneme": "u", "length": 40, "volume": 0.3, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "o", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "イェ": [
+      {"phoneme": "i", "length": 80, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "e", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+
+    "クヮ": [
+      {"phoneme": "k", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "w", "length": 40, "volume": 0.3, "fade": {"in": "70%", "out": "30%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+    "グヮ": [
+      {"phoneme": "g", "length": 60, "volume": 0.2, "fade": {"in": "50%", "out": "50%"}, "overlap": "40%"},
+      {"phoneme": "w", "length": 40, "volume": 0.3, "fade": {"in": "70%", "out": "30%"}, "overlap": "40%"},
+      {"phoneme": "a", "length": -1, "volume": 0.5, "fade": {"in": "20ms", "out": "20ms"}}
+    ],
+
+
+    "ッ": [
+      {"phoneme": "silence", "length": -1, "volume": 0}
+    ],
+    "、": [
+      {"phoneme": "silence", "length": -1, "volume": 0}
+    ]
+  }
+}
