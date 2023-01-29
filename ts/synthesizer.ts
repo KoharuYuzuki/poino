@@ -4,27 +4,27 @@ import { randomUUID } from 'crypto'
 import { Voice } from './voice'
 
 class Complex {
-  real: number;
-  imag: number;
+  real: number
+  imag: number
 
   constructor(real: number, imag: number) {
-    this.real = real;
-    this.imag = imag;
+    this.real = real
+    this.imag = imag
   }
 
   add(x: Complex) {
-    return new Complex(this.real + x.real, this.imag + x.imag);
+    return new Complex(this.real + x.real, this.imag + x.imag)
   }
 
   sub(x: Complex) {
-    return new Complex(this.real - x.real, this.imag - x.imag);
+    return new Complex(this.real - x.real, this.imag - x.imag)
   }
 
   mult(x: Complex) {
     return new Complex(
       this.real * x.real - this.imag * x.imag,
       this.real * x.imag + this.imag * x.real
-    );
+    )
   }
 
   div(x: Complex) {
@@ -35,10 +35,10 @@ class Complex {
   }
 
   static exp(x: Complex) {
-    const comp = new Complex(Math.cos(x.imag), Math.sin(x.imag));
-    comp.real *= Math.exp(x.real);
-    comp.imag *= Math.exp(x.real);
-    return comp;
+    const comp = new Complex(Math.cos(x.imag), Math.sin(x.imag))
+    comp.real *= Math.exp(x.real)
+    comp.imag *= Math.exp(x.real)
+    return comp
   }
 }
 
@@ -122,25 +122,25 @@ function fade (wave: number[], inLength: number, outLength: number) {
 }
 
 function fft2n (x: Complex[], inverse: boolean = false, recursion: boolean = false) {
-  const n = x.length;
-  if (n === 1) return x;
+  const n = x.length
+  if (n === 1) return x
 
-  const even = fft2n(x.filter((_, i) => i % 2 === 0), inverse, true);
-  const odd  = fft2n(x.filter((_, i) => i % 2 === 1), inverse, true);
+  const even = fft2n(x.filter((_, i) => i % 2 === 0), inverse, true)
+  const odd  = fft2n(x.filter((_, i) => i % 2 === 1), inverse, true)
 
-  const y: Complex[] = new Array(n).fill(0);
-  const circle = (inverse ? 2 : -2) * Math.PI;
+  const y: Complex[] = new Array(n).fill(0)
+  const circle = (inverse ? 2 : -2) * Math.PI
 
   for (let i = 0; i < (n / 2); i++) {
-    const theta = Complex.exp(new Complex(0, circle * i / n)).mult(odd[i]);
-    y[i]           = even[i].add(theta);
-    y[i + (n / 2)] = even[i].sub(theta);
+    const theta = Complex.exp(new Complex(0, circle * i / n)).mult(odd[i])
+    y[i]           = even[i].add(theta)
+    y[i + (n / 2)] = even[i].sub(theta)
   }
 
   if (inverse && !recursion) {
-    return y.map((y) => new Complex(y.real / n, y.imag / n));
+    return y.map((y) => new Complex(y.real / n, y.imag / n))
   } else {
-    return y;
+    return y
   }
 }
 
