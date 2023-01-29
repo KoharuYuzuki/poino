@@ -130,12 +130,12 @@ function fade (wave: number[], inLength: number, outLength: number) {
   return newWave
 }
 
-function fft (x: Complex[], inverse: boolean = false, recursion: boolean = false) {
+function fft2n (x: Complex[], inverse: boolean = false, recursion: boolean = false) {
   const n = x.length;
   if (n === 1) return x;
 
-  const even = fft(x.filter((_, i) => i % 2 === 0), inverse, true);
-  const odd  = fft(x.filter((_, i) => i % 2 === 1), inverse, true);
+  const even = fft2n(x.filter((_, i) => i % 2 === 0), inverse, true);
+  const odd  = fft2n(x.filter((_, i) => i % 2 === 1), inverse, true);
 
   const y: Complex[] = new Array(n).fill(0);
   const circle = (inverse ? 2 : -2) * Math.PI;
@@ -151,6 +151,27 @@ function fft (x: Complex[], inverse: boolean = false, recursion: boolean = false
   } else {
     return y;
   }
+}
+
+function fft (x: Complex[], inverse: boolean = false) {
+  const n  = x.length
+  const t  = (inverse ? 2 : -2) * Math.PI
+  const nd = n * 2
+  const bc = x.map((_, i) => t * i * i / nd).map((x) => new Complex(Math.cos(x), Math.sin(x)))
+  const b  = bc.map((x) => new Complex(x.real, -x.imag))
+  const a  = x.map((x, i) => x.mult(bc[i]))
+
+  const n2 = 1 << Math.ceil(Math.log2(nd - 1))
+  const a2 = [...a, ...[...new Array(n2 - n)].fill(new Complex(0, 0))]
+  const b2 = [...b, ...[...new Array(n2 - nd + 1)].fill(new Complex(0, 0)), ...b.slice(1).reverse()]
+  const A2 = fft2n(a2)
+  const B2 = fft2n(b2)
+
+  const AB2 = A2.map((x, i) => x.mult(B2[i]))
+  const ab2 = fft2n(AB2, true)
+
+  const d = inverse ? n : 1
+  return bc.map((x, i) => x.mult(ab2[i])).map((x) => new Complex(x.real / d, x.imag / d))
 }
 
 function fftfreq (length: number, space: number) {
