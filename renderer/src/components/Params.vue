@@ -271,7 +271,7 @@
 <style lang="scss" scoped>
   #params {
     width: 300px - 24px; // margin
-    height: calc(100% - 46px - 250px - 24px); // menus, adjusters, margin
+    height: calc(100% - 46px - 250px - 21px - 24px); // menus, adjusters, progress, margin
     margin: 16px 16px 8px 8px;
     border-radius: 8px;
     background-color: var(--color-main);

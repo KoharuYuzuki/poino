@@ -262,7 +262,8 @@ export class Synthesizer {
     speed: number,
     volume: number,
     pitchMax: number,
-    pitchMin: number
+    pitchMin: number,
+    progressCallback: Function | null = null
   ) {
     const voiceEntries = Object.entries(voice.voices)
     const phonemeEntries = Object.entries(voice.phonemes)
@@ -278,7 +279,7 @@ export class Synthesizer {
       }
     }
 
-    const waves = labels.map((label) => {
+    const waves = labels.map((label, i) => {
       const kana = label.kana
       const filtered = voiceEntries.filter((entry) => entry[0] === kana)
       if (filtered.length <= 0) return this.genSilence(label.length)
@@ -376,6 +377,7 @@ export class Synthesizer {
         prevOverlapLen = Math.round(this.sampleRate * (phoneme.overlapMs as number) / 1000)
       }
 
+      if (progressCallback) progressCallback((i + 1) / labels.length)
       return wave
     })
 

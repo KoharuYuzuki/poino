@@ -542,7 +542,7 @@
 <style lang="scss" scoped>
   #texts {
     width: calc(100% - 300px - 24px); // params, margin
-    height: calc(100% - 46px - 250px - 24px); // menus, adjusters, margin
+    height: calc(100% - 46px - 250px - 21px - 24px); // menus, adjusters, progress, margin
     position: relative;
     margin: 16px 8px 8px 16px;
     border-radius: 8px;

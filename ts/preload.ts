@@ -78,3 +78,8 @@ ipc.on('ust:decode', (binary, reply) => {
   const decoded = decoder.decode(binary)
   reply(decoded)
 })
+
+ipc.on('synth:progress', (progress, reply) => {
+  window.dispatchEvent(new CustomEvent('synthProgress', {detail: progress}))
+  reply(null)
+})

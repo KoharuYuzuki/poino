@@ -166,13 +166,18 @@ ipc.on('synth:run', ({
   const voice = filtered[0]
   let filePath: string | null
 
+  const callback = (progress: number) => {
+    ipc.send(mainWindow, 'synth:progress', progress)
+  }
+
   synthesizer.run(
     labels,
     voice,
     speed,
     volume,
     pitchMax,
-    pitchMin
+    pitchMin,
+    callback
   )
   .then((_filePath) => filePath = _filePath as string)
   .catch(console.error)

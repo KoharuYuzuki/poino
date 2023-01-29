@@ -3,6 +3,7 @@
   import Texts from './components/Texts.vue'
   import Params from './components/Params.vue'
   import Adjusters from './components/Adjusters.vue'
+  import Progress from './components/Progress.vue'
   import Licenses from './components/Licenses.vue'
 
   export default {
@@ -16,6 +17,7 @@
       Texts,
       Params,
       Adjusters,
+      Progress,
       Licenses
     }
   }
@@ -26,6 +28,7 @@
   <Texts @updateText="(x) => text = x"/>
   <Params v-bind:text="text"/>
   <Adjusters v-bind:text="text"/>
+  <Progress/>
   <Licenses/>
 </template>
 
