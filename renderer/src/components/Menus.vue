@@ -19,16 +19,7 @@
               label: '上書き保存',
               event: 'overwriteSaveProject'
             },
-            {
-              id:    'export',
-              label: '書き出し',
-              event: 'exportWav'
-            },
-            {
-              id:    'exportAll',
-              label: 'すべて書き出し',
-              event: 'exportWavAll'
-            },
+
             {
               id:    'undo',
               label: '元に戻す',
@@ -38,6 +29,16 @@
               id:    'redo',
               label: 'やり直し',
               event: 'redo'
+            },
+            {
+              id:    'export',
+              label: '書き出し',
+              event: 'exportWav'
+            },
+            {
+              id:    'exportAll',
+              label: 'すべて書き出し',
+              event: 'exportWavAll'
             }
           ],
           right: [
