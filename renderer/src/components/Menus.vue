@@ -38,6 +38,11 @@
               id:    'exportAll',
               label: 'すべて書き出し',
               event: 'exportWavAll'
+            },
+            {
+              id:    'changeEditor',
+              label: 'エディタを切り替え',
+              event: 'changeEditor'
             }
           ],
           right: [
