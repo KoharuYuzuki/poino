@@ -19,7 +19,6 @@
               label: '上書き保存',
               event: 'overwriteSaveProject'
             },
-
             {
               id:    'undo',
               label: '元に戻す',
