@@ -106,7 +106,6 @@
       }
     },
     props: {
-      speed: Number,
       editor: String
     },
     methods: {
