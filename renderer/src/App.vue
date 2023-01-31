@@ -5,11 +5,21 @@
   import Adjusters from './components/Adjusters.vue'
   import Progress from './components/Progress.vue'
   import Licenses from './components/Licenses.vue'
+  import { Text } from './text'
 
   export default {
-    data() {
+    mounted() {
+      window.addEventListener('changeEditor', () => {
+        this.editor = (this.editor === 'text') ? 'pianoroll' : 'text'
+      })
+    },
+    data(): {
+      text: Text | undefined
+      editor: 'text' | 'pianoroll'
+    } {
       return {
-        text: undefined
+        text: undefined,
+        editor: 'text'
       }
     },
     components: {
@@ -25,9 +35,18 @@
 
 <template>
   <Menus/>
-  <Texts @updateText="(x) => text = x"/>
-  <Params v-bind:text="text"/>
-  <Adjusters v-bind:text="text"/>
+  <Texts
+    @updateText="(x) => text = x"
+    v-bind:editor="editor"
+  />
+  <Params
+    v-bind:text="text"
+    v-bind:editor="editor"
+  />
+  <Adjusters
+    v-bind:text="text"
+    v-bind:editor="editor"
+  />
   <Progress/>
   <Licenses/>
 </template>

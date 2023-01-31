@@ -106,7 +106,8 @@
       }
     },
     props: {
-      speed: Number
+      speed: Number,
+      editor: String
     },
     methods: {
       addText() {
@@ -404,7 +405,10 @@
 </script>
 
 <template>
-  <div id="texts">
+  <div
+    id="texts"
+    v-bind:class="[(editor !== 'text') ? 'hide' : '']"
+  >
     <div
       class="wrapper"
       v-on:click="unselectTexts"
@@ -547,6 +551,10 @@
     margin: 16px 8px 8px 16px;
     border-radius: 8px;
     background-color: var(--color-main);
+
+    &.hide {
+      display: none;
+    }
   }
 
   .wrapper {

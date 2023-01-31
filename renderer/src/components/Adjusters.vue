@@ -38,7 +38,8 @@
       }
     },
     props: {
-      text: Text
+      text: Text,
+      editor: String
     },
     methods: {
       horizontalScroll(event: WheelEvent) {
@@ -86,7 +87,10 @@
 </script>
 
 <template>
-  <div id="adjusters">
+  <div
+    id="adjusters"
+    v-bind:class="[(editor !== 'text') ? 'hide' : '']"
+  >
     <div class="buttons">
       <button
         class="accent-button"
@@ -162,6 +166,10 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+
+    &.hide {
+      display: none;
+    }
   }
 
   .buttons {

@@ -58,7 +58,8 @@
       }
     },
     props: {
-      text: Text
+      text: Text,
+      editor: String
     },
     methods: {
       updateSpeed(event: Event) {
@@ -178,7 +179,13 @@
 </script>
 
 <template>
-  <div id="params" v-bind:class="(!text ? 'disabled': '')">
+  <div
+    id="params"
+    v-bind:class="[
+      !text ? 'disabled': '',
+      (editor !== 'text') ? 'hide' : ''
+    ]"
+  >
     <div class="param">
       <p class="label">速度</p>
       <div class="value">
@@ -284,6 +291,10 @@
       .param {
         filter: opacity(0.5);
       }
+    }
+
+    &.hide {
+      display: none;
     }
   }
 
