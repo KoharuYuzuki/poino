@@ -140,7 +140,7 @@
     }
 
     p {
-      margin: 0 16px;
+      margin: 0 12px;
       font-size: 14px;
       color: var(--color-text-main);
     }
