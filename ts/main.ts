@@ -335,7 +335,7 @@ ipc.on('project:open', async (overwriteAlert, reply) => {
           if ((note.length === null) || (bpm === null)) {
             length = 0
           } else {
-            length = Math.round((60 * 1000 / bpm) * (note.length / 480))
+            length = (60 * 1000 / bpm) * (note.length / 480)
           }
 
           return {
