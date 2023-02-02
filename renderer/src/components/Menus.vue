@@ -41,7 +41,7 @@
             },
             {
               id:    'changeEditor',
-              label: 'エディタを切り替え',
+              label: 'エディタ切り替え',
               event: 'changeEditor'
             }
           ],
