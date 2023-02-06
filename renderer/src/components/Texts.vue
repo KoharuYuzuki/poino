@@ -306,17 +306,15 @@
       loadFromHistory() {
         const texts = this.history[this.historyIndex]
         this.texts = texts.map((text) => {
-          const copiedText = JSON.parse(JSON.stringify(text))
-
           return new Text(
-            copiedText.voice,
-            copiedText.text,
-            copiedText.labels,
-            copiedText.speed,
-            copiedText.volume,
-            copiedText.pitchMax,
-            copiedText.pitchMin,
-            copiedText.selected
+            text.voice,
+            text.text,
+            text.labels,
+            text.speed,
+            text.volume,
+            text.pitchMax,
+            text.pitchMin,
+            text.selected
           )
         })
 

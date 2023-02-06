@@ -61,7 +61,7 @@ export class Text {
     this.id        = crypto.randomUUID()
     this.text      = text
     this.selected  = selected
-    this.labels    = labels
+    this.labels    = deepCopy(labels)
     this.speed     = (speed > 0)     ? speed    : -1
     this.volume    = (volume >= 0)   ? volume   : -1
     this.pitchMax  = (pitchMax >= 0) ? pitchMax : -voice.pitch.max
