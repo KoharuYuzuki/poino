@@ -27,7 +27,7 @@
 
         const isLast = (this.historyIndex === (this.history.length - 1))
         if (!isLast) {
-          this.history = this.history.slice(0, this.historyIndex + 1)
+          this.history.splice(this.historyIndex + 1, this.history.length)
         }
 
         this.history.push(texts)
@@ -306,15 +306,17 @@
       loadFromHistory() {
         const texts = this.history[this.historyIndex]
         this.texts = texts.map((text) => {
+          const copiedText = JSON.parse(JSON.stringify(text))
+
           return new Text(
-            text.voice,
-            text.text,
-            text.labels,
-            text.speed,
-            text.volume,
-            text.pitchMax,
-            text.pitchMin,
-            text.selected
+            copiedText.voice,
+            copiedText.text,
+            copiedText.labels,
+            copiedText.speed,
+            copiedText.volume,
+            copiedText.pitchMax,
+            copiedText.pitchMin,
+            copiedText.selected
           )
         })
 
