@@ -1,4 +1,4 @@
-export function extractNumbers(str: string) {
+export function extractNumbers (str: string) {
   const numStr = [...[...new Array(10)].map((_, i) => String(i)), '.']
   let existedDot = false
   return (
