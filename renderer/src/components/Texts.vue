@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Text } from '../text'
   import type { Voice } from '../text'
+  import { deepCopy } from '../utils'
   import { toRaw } from 'vue'
 
   export default {
@@ -9,14 +10,14 @@
         const filtered = this.texts.filter((text) => text.id === this.text?.id)
         const selectedId = (filtered.length > 0) ? filtered[0].id : null
 
-        const texts = JSON.parse(JSON.stringify(toRaw(this.texts))).map((text: any) => {
+        const texts = toRaw(this.texts).map((text) => {
           const filtered = this.voices.filter((voice) => voice.id === text.voiceId)
           const voice = (filtered.length > 0) ? filtered[0] : this.voices[0]
 
           return {
-            voice:    voice,
+            voice:    deepCopy(voice),
             text:     text.text,
-            labels:   text.labels,
+            labels:   deepCopy(text.labels),
             speed:    text.speed,
             volume:   text.volume,
             pitchMax: text.pitchMax,
