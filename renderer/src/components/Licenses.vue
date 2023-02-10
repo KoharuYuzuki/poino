@@ -73,7 +73,7 @@
               v-if="value?.open"
             >
               <p
-                v-for="text in value.text.split(new RegExp('(\\r\\n|\\n|\\r)', 'gm'))"
+                v-for="text in value.text.split(new RegExp('\r\n|\n|\r', 'gm'))"
               >
                 {{ text }}
               </p>
