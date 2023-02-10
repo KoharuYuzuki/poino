@@ -269,7 +269,7 @@ ipc.on('project:open', async (overwriteAlert, reply) => {
         let bpm: number | null = null
 
         const notes = notesStr.map((note) => {
-          const entries = note.split(new RegExp('(\r\n|\n|\r)'))
+          const entries = note.split(new RegExp('\r\n|\n|\r'))
 
           let length:  number | null = null
           let lyric:   string | null = null
