@@ -173,6 +173,7 @@
           align-items: flex-start;
 
           p {
+            min-height: 8px;
             font-size: 14px;
             color: var(--color-text-main);
             user-select: text;
