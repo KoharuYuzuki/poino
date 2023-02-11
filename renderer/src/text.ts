@@ -2,9 +2,10 @@ import { toRaw } from 'vue'
 import { deepCopy } from './utils'
 
 export type label = {
-  kana:   string
-  length: number
-  accent: number
+  kana:      string
+  length:    number
+  accent:    number
+  selected?: boolean
 }
 
 export interface Voice {

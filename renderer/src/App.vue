@@ -3,6 +3,9 @@
   import Texts from './components/Texts.vue'
   import Params from './components/Params.vue'
   import Adjusters from './components/Adjusters.vue'
+  import PianoParams from './components/PianoParams.vue'
+  import PianoController from './components/PianoController.vue'
+  import PianoRoll from './components/PianoRoll.vue'
   import Progress from './components/Progress.vue'
   import Licenses from './components/Licenses.vue'
   import { Text } from './text'
@@ -15,11 +18,23 @@
     },
     data(): {
       text: Text | undefined
-      editor: 'text' | 'pianoroll'
+      editor: 'text' | 'pianoroll',
+      bpm: number
+      beatTop: number
+      beatBottom: number
+      pianoRollSnap: number
+      pianoRollTimesX: number
+      player: HTMLAudioElement | undefined
     } {
       return {
         text: undefined,
-        editor: 'text'
+        editor: 'text',
+        bpm: 120,
+        beatTop: 4,
+        beatBottom: 4,
+        pianoRollSnap: 4,
+        pianoRollTimesX: 1,
+        player: undefined
       }
     },
     components: {
@@ -27,6 +42,9 @@
       Texts,
       Params,
       Adjusters,
+      PianoParams,
+      PianoController,
+      PianoRoll,
       Progress,
       Licenses
     }
@@ -37,6 +55,7 @@
   <Menus/>
   <Texts
     @updateText="(x) => text = x"
+    @sendPlayer="(x) => player = x"
     v-bind:editor="editor"
   />
   <Params
@@ -46,6 +65,32 @@
   <Adjusters
     v-bind:text="text"
     v-bind:editor="editor"
+  />
+  <PianoParams
+    @updateBpm="(x) => bpm = x"
+    @updateBeatTop="(x) => beatTop = x"
+    @updateBeatBottom="(x) => beatBottom = x"
+    @updatePianoRollSnap="(x) => pianoRollSnap = x"
+    @updatePianoRollTimesX="(x) => pianoRollTimesX = x"
+    v-bind:editor="editor"
+    v-bind:bpm="bpm"
+    v-bind:beatTop="beatTop"
+    v-bind:beatBottom="beatBottom"
+    v-bind:pianoRollSnap="pianoRollSnap"
+    v-bind:pianoRollTimesX="pianoRollTimesX"
+  />
+  <PianoController
+    v-bind:editor="editor"
+  />
+  <PianoRoll
+    v-bind:text="text"
+    v-bind:editor="editor"
+    v-bind:bpm="bpm"
+    v-bind:beatTop="beatTop"
+    v-bind:beatBottom="beatBottom"
+    v-bind:pianoRollSnap="pianoRollSnap"
+    v-bind:pianoRollTimesX="pianoRollTimesX"
+    v-bind:player="player"
   />
   <Progress/>
   <Licenses/>
@@ -57,6 +102,7 @@
     --color-blue: #B1D7DD;
     --color-blue-dark: #697E82;
     --color-blue-strong: #58A9B5;
+    --color-blue-light: #D1E4E4;
 
     --color-main: var(--color-white);
     --color-sub: var(--color-blue);
@@ -70,6 +116,17 @@
     --color-line-sub: var(--color-blue-strong);
 
     --color-rangebar-main: var(--color-blue-strong);
+
+    --color-keyboard-main: var(--color-white);
+    --color-keyboard-sub: var(--color-blue-strong);
+
+    --color-roll-main: var(--color-white);
+    --color-roll-sub: var(--color-blue-light);
+
+    --color-note-main: var(--color-blue-strong);
+    --color-note-sub: var(--color-blue);
+
+    --color-current-time-line-main: var(--color-blue-dark);
 
     * {
       margin: 0;

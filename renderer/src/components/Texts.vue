@@ -84,7 +84,8 @@
       cacheFilePaths: string[]
       opening: boolean
       saving: boolean
-      exporting: boolean,
+      exporting: boolean
+      synthesizing: boolean
       history: any[][],
       historyIndex: number
     } {
@@ -102,6 +103,7 @@
         opening: false,
         saving: false,
         exporting: false,
+        synthesizing: false,
         history: [] as any[][],
         historyIndex: -1
       }
@@ -148,8 +150,9 @@
         }
         this.showVoiceSelector = false
       },
-      playVoice(all=false) {
+      playVoice(all=false, playbackPosition=0) {
         if (!all && !this.text) return
+        if (this.synthesizing) return
 
         if (!this.playing) {
           this.playing = true
@@ -159,6 +162,7 @@
         }
 
         const texts = (all ? this.texts : [this.text as Text])
+        this.synthesizing = true
 
         Promise.all(
           texts
@@ -177,10 +181,17 @@
           const filePath = this.cacheFilePaths[this.playingIndex]
           this.playingIndex = 0
           this.player.src = filePath
+          if (!all) {
+            this.player.currentTime =
+              (playbackPosition < 0) ? 0 :
+              (playbackPosition > this.player.duration) ? this.player.duration :
+              playbackPosition
+          }
           this.selectTextByCacheFile(filePath)
           this.player.play()
         })
         .catch(console.error)
+        .finally(() => this.synthesizing = false)
       },
       selectTextByCacheFile(filePath: string) {
         const filtered = this.texts.filter((text) => text.cacheFile === filePath)
@@ -327,6 +338,9 @@
           this.unselectTexts()
           this.emitText()
         }
+      },
+      sendPlayer() {
+        this.$emit('sendPlayer', this.player)
       }
     },
     watch: {
@@ -400,6 +414,13 @@
           })
         )
       })
+
+      window.addEventListener('play', (event) => {
+        const playbackPosition = (event as CustomEvent).detail
+        this.playVoice(false, playbackPosition)
+      })
+
+      this.sendPlayer()
     }
   }
 </script>
