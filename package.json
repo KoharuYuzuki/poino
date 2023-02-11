@@ -20,9 +20,9 @@
     "typescript": "^4.9.3"
   },
   "build": {
-    "appId": "KoharuYuzuki25.poino",
+    "appId": "KoharuYuzuki.poino",
     "productName": "poino",
-    "copyright": "Copyright (c) 2022 KoharuYuzuki25",
+    "copyright": "Copyright (c) 2022 KoharuYuzuki",
     "asar": true,
     "files": [
       "./build/openjtalk/*",
