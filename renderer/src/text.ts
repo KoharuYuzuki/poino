@@ -1,4 +1,5 @@
 import { toRaw } from 'vue'
+import { deepCopy } from './utils'
 
 export type label = {
   kana:   string
