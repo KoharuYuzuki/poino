@@ -2,6 +2,7 @@
   import { Text } from '../text'
   import type { label } from '../text'
   import { hira2kana, kanaOnly } from '../../../ts/utils'
+  import { toRaw } from 'vue'
 
   export default {
     mounted() {
@@ -381,7 +382,7 @@
         if (!this.text) return
         const labels = this.text.labels
         const unselected = labels.filter((label) => !label.selected)
-        this.text.labels = unselected
+        this.text.labels = unselected.map((x) => toRaw(x))
         this.text?.cacheClear()
         this.updateProject()
         this.updateVerticalLinesWidthWithDelay()
