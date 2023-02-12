@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Text } from '../text'
-  import type { label } from '../text'
+  import { Text, Label } from '../text'
   import { hira2kana, kanaOnly } from '../../../ts/utils'
   import { toRaw } from 'vue'
 
@@ -37,7 +36,7 @@
       noteMoving: boolean
       noteMoveOrigAccs: number[]
       noteMoveY: number
-      lastClickedNoteLabel: label | null
+      lastClickedNoteLabel: Label | null
       currentTimeMsIntervalId: number | null
     } {
       return {
@@ -166,20 +165,20 @@
           detail: this.currentTimeMs / 1000
         }))
       },
-      selectNote(event: Event, label: label) {
+      selectNote(event: Event, label: Label) {
         if (!this.text) return
         const metaKey = (event as PointerEvent).metaKey
         const ctrlKey = (event as PointerEvent).ctrlKey
         const shiftKey = (event as PointerEvent).shiftKey
         const labels = this.text.labels
         if (metaKey || ctrlKey) {
-          label.selected = true
+          label.select()
           this.lastClickedNoteLabel = label
           return
         }
         if (shiftKey) {
           if (!this.lastClickedNoteLabel) {
-            label.selected = true
+            label.select()
             this.lastClickedNoteLabel = label
             return
           }
@@ -189,11 +188,11 @@
             (start <= end) ? start : end,
             ((start <= end) ? end : start) + 1
           )
-          sliced.forEach((label) => label.selected = true)
+          sliced.forEach((label) => label.select())
           return
         }
-        labels.forEach((label) => label.selected = false)
-        label.selected = true
+        labels.forEach((label) => label.unselect())
+        label.select()
         this.lastClickedNoteLabel = label
       },
       unselectNotes(event: Event) {
@@ -203,7 +202,7 @@
         const shiftKey = (event as PointerEvent).shiftKey
         if (this.noteMoving || metaKey || ctrlKey || shiftKey) return
         const labels = this.text.labels
-        labels.forEach((label) => label.selected = false)
+        labels.forEach((label) => label.unselect())
         this.lastClickedNoteLabel = null
       },
       calcSnap(index: number) {
@@ -228,7 +227,7 @@
         if (!this.text) return
 
         const labels = this.text.labels
-        const filtered = labels.filter((x) => x.selected)
+        const filtered = labels.filter((x) => x.isSelected())
         if (filtered.length <= 0) return
 
         const selected = filtered[0]
@@ -253,7 +252,7 @@
 
         if (this.noteResizeDirection === 'front') {
           const beforeIndex = index - 1
-          let beforeLabel: label | null = null
+          let beforeLabel: Label | null = null
 
           if ((beforeIndex >= 0) && (beforeIndex < labels.length)) {
             const label = labels[beforeIndex]
@@ -261,11 +260,7 @@
           }
 
           if (beforeLabel === null) {
-            beforeLabel = {
-              kana: '、',
-              length: 0,
-              accent: selected.accent
-            }
+            beforeLabel = new Label('、', 0, selected.accent)
             labels.splice(index, 0, beforeLabel)
           }
 
@@ -281,7 +276,7 @@
           beforeLabel.length = newBeforeMs
         } else {
           const afterIndex = index + 1
-          let afterLabel: label | null = null
+          let afterLabel: Label | null = null
 
           if ((afterIndex >= 0) && (afterIndex < labels.length)) {
             const label = labels[afterIndex]
@@ -289,11 +284,7 @@
           }
 
           if (afterLabel === null) {
-            afterLabel = {
-              kana: '、',
-              length: 0,
-              accent: selected.accent
-            }
+            afterLabel = new Label('、', 0, selected.accent)
             labels.splice(index + 1, 0, afterLabel)
           }
 
@@ -314,7 +305,7 @@
         if (!this.text) return
 
         const labels = this.text.labels
-        const selections = labels.filter((x) => x.selected)
+        const selections = labels.filter((x) => x.isSelected())
         if (selections.length <= 0) return
 
         if (this.noteMoveOrigAccs.length <= 0) {
@@ -367,11 +358,11 @@
         const noteHeightHalf = 10
         const sorted = diffs.sort((a, b) => a.diff - b.diff)
         const insertIndex = (sorted.length > 0) ? sorted[0].index : 0
-        const newLabel: label = {
-          kana: 'ア',
-          length: this.bpm2ms(this.bpm),
-          accent: this.y2acc(y - noteHeightHalf)
-        }
+        const newLabel = new Label(
+          'ア',
+          this.bpm2ms(this.bpm),
+          this.y2acc(y - noteHeightHalf)
+        )
 
         labels.splice(insertIndex, 0, newLabel)
         this.text?.cacheClear()
@@ -381,13 +372,13 @@
       removeNotes() {
         if (!this.text) return
         const labels = this.text.labels
-        const unselected = labels.filter((label) => !label.selected)
+        const unselected = labels.filter((label) => !label.isSelected())
         this.text.labels = unselected.map((x) => toRaw(x))
         this.text?.cacheClear()
         this.updateProject()
         this.updateVerticalLinesWidthWithDelay()
       },
-      changeKana(event: Event, label: label) {
+      changeKana(event: Event, label: Label) {
         if (event.target === null) return
         const target = event.target as HTMLInputElement
         const result = kanaOnly(hira2kana(target.value))
@@ -566,7 +557,7 @@
             `top: ${calcPositionY(i)}px;`
           ]"
           v-bind:class="[
-            label.selected ? 'selected' : '',
+            label.isSelected() ? 'selected' : '',
             ((label.kana === '、') && (label.length <= 0)) ? 'hide' : ''
           ]"
           v-on:click.stop="(event) => selectNote(event, label)"
@@ -582,7 +573,7 @@
           >
           <div
             class="extend-area"
-            v-if="label.selected && (text.labels.filter((x) => x.selected).length === 1)"
+            v-if="label.isSelected() && (text.labels.filter((x) => x.isSelected()).length === 1)"
             v-for="direction in ['front', 'back']"
             v-bind:class="[
               direction

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Text } from '../text'
-  import type { label } from '../text'
+  import { Text, Label } from '../text'
   import { extractNumbers } from '../utils'
 
   interface Config {
@@ -49,7 +48,7 @@
           behavior: 'auto'
         })
       },
-      updateAccent(event: Event, label: label) {
+      updateAccent(event: Event, label: Label) {
         if (event.target === null) return
         const target = event.target as HTMLInputElement
         const [min, max] = [
@@ -64,7 +63,7 @@
         this.text?.cacheClear()
         if (event.type === 'change') this.updateProject()
       },
-      updateLength(event: Event, label: label) {
+      updateLength(event: Event, label: Label) {
         if (event.target === null) return
         const target = event.target as HTMLInputElement
         const [min, max] = [

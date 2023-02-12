@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Text } from '../text'
+  import { Text, Label } from '../text'
   import type { Voice } from '../text'
   import { deepCopy } from '../utils'
   import { toRaw } from 'vue'
@@ -17,7 +17,7 @@
           return {
             voice:    deepCopy(voice),
             text:     text.text,
-            labels:   deepCopy(text.labels),
+            labels:   text.labels.map((x) => new Label(x.kana, x.length, x.accent)),
             speed:    text.speed,
             volume:   text.volume,
             pitchMax: text.pitchMax,
@@ -144,6 +144,7 @@
         this.voice = voice
         if (this.text && (this.text.voiceId !== voice.id)) {
           this.text.voiceId = voice.id
+          this.text.changeLabelIdAll()
           this.text.cacheClear()
           this.saved = false
           this.updateProject()
@@ -230,11 +231,14 @@
           this.texts = texts.map((text) => {
             const filtered = this.voices.filter((voice) => voice.id === text.voiceId)
             const voice = (filtered.length > 0) ? filtered[0] : this.voices[0]
+            const labels = text.labels.map((label) => {
+              return new Label(label.kana, label.length, label.accent)
+            })
 
             return new Text(
               voice,
               text.text,
-              text.labels,
+              labels,
               text.speed,
               text.volume,
               text.pitchMax,
@@ -254,9 +258,17 @@
         this.saving = true
 
         const texts = toRaw(this.texts).map((text) => {
+          const labels = text.labels.map((label) => {
+            return {
+              kana:   label.kana,
+              length: label.length,
+              accent: label.accent
+            }
+          })
+
           return {
             text:     text.text,
-            labels:   text.labels,
+            labels:   labels,
             speed:    text.speed,
             volume:   text.volume,
             pitchMax: text.pitchMax,
@@ -446,7 +458,10 @@
           placeholder="ここにテキストを入力"
           v-model="text.text"
           v-on:click="(selectText(text))"
-          v-on:input="(text.cacheClear())"
+          v-on:input="[
+            text.changeLabelIdAll(),
+            text.cacheClear()
+          ]"
           v-on:change="(text.text2label())"
           v-bind:class="[(text.selected ? 'selected' : '')]"
         ></textarea>

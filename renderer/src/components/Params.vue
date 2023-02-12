@@ -149,6 +149,7 @@
         text.volume   = this.volume.val
         text.pitchMax = this.pitchMax.val
         text.pitchMin = this.pitchMin.val
+        text.changeLabelIdAll()
         text.cacheClear()
         this.voiceId = text.voiceId
       },

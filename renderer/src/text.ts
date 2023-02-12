@@ -1,11 +1,70 @@
 import { toRaw } from 'vue'
-import { deepCopy } from './utils'
 
-export type label = {
-  kana:      string
-  length:    number
-  accent:    number
-  selected?: boolean
+export class Label {
+  _id:       string
+  _kana:     string
+  _length:   number
+  _accent:   number
+  _selected: boolean
+
+  constructor(
+    kana:   string,
+    length: number,
+    accent: number
+  ) {
+    this._id       = crypto.randomUUID()
+    this._kana     = kana
+    this._length   = length
+    this._accent   = accent
+    this._selected = false
+  }
+
+  get id() {
+    return this._id
+  }
+
+  get kana() {
+    return this._kana
+  }
+
+  get length() {
+    return this._length
+  }
+
+  get accent() {
+    return this._accent
+  }
+
+  set kana(kana: string) {
+    this._kana = kana
+    this.changeId()
+  }
+
+  set length(length: number) {
+    this._length = length
+    this.changeId()
+  }
+
+  set accent(accent: number) {
+    this._accent = accent
+    this.changeId()
+  }
+
+  changeId() {
+    this._id = crypto.randomUUID()
+  }
+
+  select() {
+    this._selected = true
+  }
+
+  unselect() {
+    this._selected = false
+  }
+
+  isSelected() {
+    return this._selected
+  }
 }
 
 export interface Voice {
@@ -42,7 +101,7 @@ export class Text {
   id:        string
   text:      string
   selected:  boolean
-  labels:    label[]
+  labels:    Label[]
   speed:     number
   volume:    number
   pitchMax:  number
@@ -53,7 +112,7 @@ export class Text {
   constructor(
     voice: Voice,
     text = '',
-    labels: label[] = [],
+    labels: Label[] = [],
     speed    = -1,
     volume   = -1,
     pitchMax = -1,
@@ -63,7 +122,7 @@ export class Text {
     this.id        = crypto.randomUUID()
     this.text      = text
     this.selected  = selected
-    this.labels    = deepCopy(labels)
+    this.labels    = labels.map((x) => new Label(x.kana, x.length, x.accent))
     this.speed     = (speed > 0)     ? speed    : -1
     this.volume    = (volume >= 0)   ? volume   : -1
     this.pitchMax  = (pitchMax >= 0) ? pitchMax : -voice.pitch.max
@@ -77,9 +136,15 @@ export class Text {
     const speed = Number(this.speed)
 
     ;(window as any).openjtalk.run(text, speed)
-    .then((labels: label[][] | null) => {
+    .then((labels: any[][] | null) => {
       if (labels === null) return
-      this.labels = labels.flat()
+      this.labels = labels.flat().map((label) => {
+        return new Label(
+          label.kana,
+          label.length,
+          label.accent
+        )
+      })
       window.dispatchEvent(new Event('updateProject'))
     })
     .catch(console.error)
@@ -106,5 +171,9 @@ export class Text {
 
   cacheClear() {
     this.cacheFile = ''
+  }
+
+  changeLabelIdAll() {
+    this.labels.forEach((label) => label.changeId())
   }
 }

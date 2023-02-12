@@ -242,9 +242,14 @@ function approximateIndex (value: number, list: number[]) {
 }
 
 type label = {
-  kana:   string
-  length: number
-  accent: number
+  id:      string
+  kana:    string
+  length:  number
+  accent:  number
+  _id:     string
+  _kana:   string
+  _length: number
+  _accent: number
 }
 
 export class Synthesizer {
@@ -265,6 +270,13 @@ export class Synthesizer {
     pitchMin: number,
     progressCallback: Function | null = null
   ) {
+    labels.forEach((label) => {
+      label.id     = label._id
+      label.kana   = label._kana
+      label.length = label._length
+      label.accent = label._accent
+    })
+
     const voiceEntries = Object.entries(voice.voices)
     const phonemeEntries = Object.entries(voice.phonemes)
     const pitchDiff = pitchMax - pitchMin
@@ -279,131 +291,191 @@ export class Synthesizer {
       }
     }
 
-    const waves = labels.map((label, i) => {
-      const kana = label.kana
-      const filtered = voiceEntries.filter((entry) => entry[0] === kana)
-      if (filtered.length <= 0) return this.genSilence(label.length)
-      const voice = filtered[0][1].map((phoneme) => {return {...phoneme}})
+    let progressCounter = 0
 
-      voice.reduce((remaining, phoneme) => {
-        if (phoneme.length !== -1) {
-          phoneme.length *= (1 / speed)
-        } else {
-          phoneme.length = remaining
-        }
+    const promises = labels.map((label) => {
+      return new Promise<Uint8Array>((resolve, reject) => {
+        const filePath = path.join(this.tmpDir, `${label.id}.tmp`)
 
-        if (phoneme.fade) {
-          const regexp = new RegExp('([0-9]+)(ms|%)$')
-          const inResult = regexp.exec(phoneme.fade.in)
-          const outResult = regexp.exec(phoneme.fade.out)
+        fs.lstat(filePath)
+        .catch(() => {})
+        .then((stats) => {
+          progressCounter++
+          if (progressCallback) progressCallback(progressCounter / labels.length)
 
-          phoneme.fadeInMs =
-            (!inResult) ? 0 :
-            (inResult[2] === 'ms') ? Number(inResult[1]) :
-            Math.round(phoneme.length * Number(inResult[1]) / 100)
+          if (stats && stats.isFile()) {
+            return new Promise<Uint8Array>((resolve, reject) => {
+              fs.readFile(filePath)
+              .then((data) => resolve(Uint8Array.from(data)))
+              .catch(reject)
+            })
+          } else {
+            const kana = label.kana
+            const filtered = voiceEntries.filter((entry) => entry[0] === kana)
+            if (filtered.length <= 0) {
+              const wave = this.genSilence(label.length)
+              const data = this.numArr2uint8Arr(wave)
+              return data
+            }
 
-          phoneme.fadeOutMs =
-            (!outResult) ? 0 :
-            (outResult[2] === 'ms') ? Number(outResult[1]) :
-            Math.round(phoneme.length * Number(outResult[1]) / 100)
-        } else {
-          phoneme.fadeInMs = 0
-          phoneme.fadeOutMs = 0
-        }
+            const voice = filtered[0][1].map((phoneme) => {return {...phoneme}})
 
-        if (phoneme.overlap) {
-          const regexp = new RegExp('([0-9]+)(ms|%)$')
-          const result = regexp.exec(phoneme.overlap)
+            voice.reduce((remaining, phoneme) => {
+              if (phoneme.length !== -1) {
+                phoneme.length *= (1 / speed)
+              } else {
+                phoneme.length = remaining
+              }
 
-          phoneme.overlapMs =
-            (!result) ? 0 :
-            (result[2] === 'ms') ? Number(result[1]) :
-            Math.round(phoneme.length * Number(result[1]) / 100)
-        } else {
-          phoneme.overlapMs = 0
-        }
+              if (phoneme.fade) {
+                const regexp = new RegExp('([0-9]+)(ms|%)$')
+                const inResult = regexp.exec(phoneme.fade.in)
+                const outResult = regexp.exec(phoneme.fade.out)
 
-        if (phoneme.length !== -1) {
-          remaining -= phoneme.length - phoneme.overlapMs
-          return (remaining > 0) ? remaining : 0
-        } else {
-          return 0
-        }
-      }, label.length)
+                phoneme.fadeInMs =
+                  (!inResult) ? 0 :
+                  (inResult[2] === 'ms') ? Number(inResult[1]) :
+                  Math.round(phoneme.length * Number(inResult[1]) / 100)
 
-      let wave: number[] = []
-      let prevOverlapLen = 0
+                phoneme.fadeOutMs =
+                  (!outResult) ? 0 :
+                  (outResult[2] === 'ms') ? Number(outResult[1]) :
+                  Math.round(phoneme.length * Number(outResult[1]) / 100)
+              } else {
+                phoneme.fadeInMs = 0
+                phoneme.fadeOutMs = 0
+              }
 
-      for (let i = 0; i < voice.length; i++) {
-        const phoneme = voice[i]
-        const filtered = phonemeEntries.filter((entry) => entry[0] === phoneme.phoneme)
+              if (phoneme.overlap) {
+                const regexp = new RegExp('([0-9]+)(ms|%)$')
+                const result = regexp.exec(phoneme.overlap)
 
-        if (filtered.length <= 0) {
-          const silence = this.genSilence(phoneme.length - prevOverlapLen)
-          wave = [...wave, ...silence]
-          prevOverlapLen = Math.round(this.sampleRate * (phoneme.overlapMs as number) / 1000)
-          continue
-        }
+                phoneme.overlapMs =
+                  (!result) ? 0 :
+                  (result[2] === 'ms') ? Number(result[1]) :
+                  Math.round(phoneme.length * Number(result[1]) / 100)
+              } else {
+                phoneme.overlapMs = 0
+              }
 
-        const envelope      = filtered[0][1]
-        const sampleRate    = this.sampleRate
-        const f0            = (pitchDiff * label.accent) + pitchMin
-        const length        = phoneme.length
-        const phonemeVolume = phoneme.volume * volume
+              if (phoneme.length !== -1) {
+                remaining -= phoneme.length - phoneme.overlapMs
+                return (remaining > 0) ? remaining : 0
+              } else {
+                return 0
+              }
+            }, label.length)
 
-        const w = envelope2wave(
-          envelope,
-          sampleRate,
-          f0,
-          length,
-          phonemeVolume
-        )
+            let wave: number[] = []
+            let prevOverlapLen = 0
 
-        const faded = fade(
-          w,
-          Math.round(this.sampleRate * (phoneme.fadeInMs as number) / 1000),
-          Math.round(this.sampleRate * (phoneme.fadeOutMs as number) / 1000)
-        )
+            for (let i = 0; i < voice.length; i++) {
+              const phoneme = voice[i]
+              const filtered = phonemeEntries.filter((entry) => entry[0] === phoneme.phoneme)
 
-        const overlapped = wave.slice(wave.length - prevOverlapLen).map((x, i) => {
-          return (i <= faded.length) ? x + faded[i] : x
+              if (filtered.length <= 0) {
+                const silence = this.genSilence(phoneme.length - prevOverlapLen)
+                wave = [...wave, ...silence]
+                prevOverlapLen = Math.round(this.sampleRate * (phoneme.overlapMs as number) / 1000)
+                continue
+              }
+
+              const envelope      = filtered[0][1]
+              const sampleRate    = this.sampleRate
+              const f0            = (pitchDiff * label.accent) + pitchMin
+              const length        = phoneme.length
+              const phonemeVolume = phoneme.volume * volume
+
+              const w = envelope2wave(
+                envelope,
+                sampleRate,
+                f0,
+                length,
+                phonemeVolume
+              )
+
+              const faded = fade(
+                w,
+                Math.round(this.sampleRate * (phoneme.fadeInMs as number) / 1000),
+                Math.round(this.sampleRate * (phoneme.fadeOutMs as number) / 1000)
+              )
+
+              const overlapped = wave.slice(wave.length - prevOverlapLen).map((x, i) => {
+                return (i <= faded.length) ? x + faded[i] : x
+              })
+
+              wave = [
+                ...wave.slice(0, wave.length - prevOverlapLen),
+                ...overlapped,
+                ...faded.slice(prevOverlapLen)
+              ]
+              prevOverlapLen = Math.round(this.sampleRate * (phoneme.overlapMs as number) / 1000)
+            }
+
+            const data = this.numArr2uint8Arr(wave)
+            return new Promise<Uint8Array>((resolve, reject) => {
+              fs.writeFile(filePath, data)
+              .then(() => resolve(data))
+              .catch(reject)
+            })
+          }
+        })
+        .then((data) => resolve(data))
+        .catch(reject)
+      })
+    })
+
+    const synthChain = promises.reduce((
+      prev: Promise<Uint8Array[]>,
+      current: Promise<Uint8Array>
+    ) => {
+      let waves: Uint8Array[]
+      const promise =
+        prev
+        .then((_waves) => {
+          waves = _waves
+          return current
+        })
+        .then((wave) => {
+          return Promise.resolve([
+            ...waves,
+            wave
+          ])
+        })
+      return promise
+    }, Promise.resolve([]))
+
+    return new Promise((resolve, reject) => {
+      synthChain
+      .then((waves) => {
+        const waveLen = waves.reduce((sum, wave) => sum + wave.length, 0)
+        const header = this.genWavHeader(waveLen)
+
+        const nanRemovedWaves = waves.map((wave) => {
+          return wave.map((x) => (Number.isNaN(x)) ? 0 : x)
         })
 
-        wave = [
-          ...wave.slice(0, wave.length - prevOverlapLen),
-          ...overlapped,
-          ...faded.slice(prevOverlapLen)
+        const wavData = [
+          Uint8Array.from(header),
+          ...nanRemovedWaves
         ]
-        prevOverlapLen = Math.round(this.sampleRate * (phoneme.overlapMs as number) / 1000)
-      }
 
-      if (progressCallback) progressCallback((i + 1) / labels.length)
-      return wave
-    })
+        const filePath = path.join(this.tmpDir, `${randomUUID()}.tmp`)
 
-    const waveLen = waves.reduce((sum, wave) => sum + wave.length, 0)
-    const header = this.genWavHeader(waveLen)
+        const exportChain = wavData.reduce((
+          prev: Promise<void>, current: Uint8Array
+        ) => {
+          const promise =
+            prev.then(() => fs.appendFile(filePath, current))
+          return promise
+        }, Promise.resolve())
 
-    const nanRemovedWaves = waves.map((wave) => {
-      return wave.map((x) => (Number.isNaN(x)) ? 0 : x)
-    })
-
-    const wavData = [
-      Uint8Array.from(header),
-      ...nanRemovedWaves.map((wave) => {
-        return Uint8Array.from(
-          new Int8Array(Float32Array.from(wave).buffer)
-        )
+        return exportChain.then(() => resolve(filePath))
       })
-    ]
-
-    const filePath = path.join(this.tmpDir, `${randomUUID()}.tmp`)
-
-    return new Promise(async (resolve, reject) => {
-      for (let i = 0; i < wavData.length; i++) {
-        await fs.appendFile(filePath, wavData[i]).catch(reject)
-      }
-      resolve(filePath)
+      .catch(reject)
+      .finally(() => {
+        if (progressCallback) progressCallback(1)
+      })
     })
   }
 
@@ -448,5 +520,11 @@ export class Synthesizer {
       (i % length === 0) ? arr.push(char) : arr[arr.length - 1] += char
       return arr
     }, [] as string[])
+  }
+
+  numArr2uint8Arr(array: number[]) {
+    return Uint8Array.from(
+      new Int8Array(Float32Array.from(array).buffer)
+    )
   }
 }
