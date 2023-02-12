@@ -750,7 +750,7 @@
           height: calc(100% + 16px); // beats
           top: -16px;
           background-color: var(--color-line-sub);
-          z-index: 1;
+          z-index: 2;
         }
 
         &.sub-line {
