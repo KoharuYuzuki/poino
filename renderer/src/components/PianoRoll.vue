@@ -366,6 +366,7 @@
 
         labels.splice(insertIndex, 0, newLabel)
         this.text?.cacheClear()
+        this.text?.text2voice()
         this.updateProject()
         this.updateVerticalLinesWidthWithDelay()
       },
@@ -375,6 +376,7 @@
         const unselected = labels.filter((label) => !label.isSelected())
         this.text.labels = unselected.map((x) => toRaw(x))
         this.text?.cacheClear()
+        this.text?.text2voice()
         this.updateProject()
         this.updateVerticalLinesWidthWithDelay()
       },
@@ -386,6 +388,7 @@
         target.value = kana
         label.kana = kana
         this.text?.cacheClear()
+        this.text?.text2voice()
         this.updateProject()
       },
       onMouseMove(event: Event) {
@@ -410,12 +413,14 @@
         if (this.noteResizing) {
           this.resizeNote(event)
           this.text?.cacheClear()
+          this.text?.text2voice()
           this.updateProject()
         }
 
         if (this.noteMoving) {
           this.moveNote(event)
           this.text?.cacheClear()
+          this.text?.text2voice()
           this.updateProject()
         }
       },
