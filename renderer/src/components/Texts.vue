@@ -224,14 +224,14 @@
         this.opening = true
 
         ;(window as any).project.open(!this.saved)
-        .then((texts: Text[] | null) => {
+        .then((texts: any[] | null) => {
           if (texts === null) return
           if (texts.length <= 0) return
 
           this.texts = texts.map((text) => {
             const filtered = this.voices.filter((voice) => voice.id === text.voiceId)
             const voice = (filtered.length > 0) ? filtered[0] : this.voices[0]
-            const labels = text.labels.map((label) => {
+            const labels = text.labels.map((label: any) => {
               return new Label(label.kana, label.length, label.accent)
             })
 
