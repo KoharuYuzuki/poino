@@ -8,15 +8,17 @@ export class Label {
   _selected: boolean
 
   constructor(
-    kana:   string,
-    length: number,
-    accent: number
+    kana:     string,
+    length:   number,
+    accent:   number,
+    id:       string = '',
+    selected: boolean = false
   ) {
-    this._id       = crypto.randomUUID()
+    this._id       = (id) ? id : crypto.randomUUID()
     this._kana     = kana
     this._length   = length
     this._accent   = accent
-    this._selected = false
+    this._selected = selected
   }
 
   get id() {
@@ -122,7 +124,7 @@ export class Text {
     this.id        = crypto.randomUUID()
     this.text      = text
     this.selected  = selected
-    this.labels    = labels.map((x) => new Label(x.kana, x.length, x.accent))
+    this.labels    = labels.map((x) => new Label(x.kana, x.length, x.accent, x.id))
     this.speed     = (speed > 0)     ? speed    : -1
     this.volume    = (volume >= 0)   ? volume   : -1
     this.pitchMax  = (pitchMax >= 0) ? pitchMax : -voice.pitch.max

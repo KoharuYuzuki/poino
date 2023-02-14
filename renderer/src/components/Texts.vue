@@ -17,7 +17,7 @@
           return {
             voice:    deepCopy(voice),
             text:     text.text,
-            labels:   text.labels.map((x) => new Label(x.kana, x.length, x.accent)),
+            labels:   text.labels.map((x) => new Label(x.kana, x.length, x.accent, x.id)),
             speed:    text.speed,
             volume:   text.volume,
             pitchMax: text.pitchMax,
