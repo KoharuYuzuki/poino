@@ -787,9 +787,6 @@
       margin: auto;
       top: 0;
       left: 0;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
 
       .note {
         height: 20px;
