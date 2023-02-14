@@ -55,7 +55,10 @@ Promise.all([
   })
 
   win.loadFile('./renderer/dist/index.html')
-  win.setTitle(`${appName} v${version}`)
+  .then(() => {
+    win.setTitle(`${appName} v${version}`)
+  })
+  .catch(console.error)
 
   const os = process.platform
   const menu = Menu.buildFromTemplate([
