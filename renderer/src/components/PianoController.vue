@@ -32,13 +32,13 @@
     id="piano-controller"
     v-bind:class="[(editor !== 'pianoroll') ? 'hide' : '']"
   >
-    <div
+    <button
       class="item"
       v-for="item in items"
       v-on:click="(dispatchEvent(item.event))"
     >
       <p>{{ item.label }}</p>
-    </div>
+    </button>
   </div>
 </template>
 
