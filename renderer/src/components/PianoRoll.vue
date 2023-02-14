@@ -593,11 +593,18 @@
         </div>
       </div>
       <div
-        class="current-time-line"
+        class="current-time-line-box"
         v-bind:style="[
-          `left: ${currentTimeMs * pianoRollTimesX * adjustTimesX}px;`
+          `width: calc(50% + ${calcTotalLabelLen() * pianoRollTimesX * adjustTimesX}px);`
         ]"
-      ></div>
+      >
+        <div
+          class="current-time-line"
+          v-bind:style="[
+            `left: ${currentTimeMs * pianoRollTimesX * adjustTimesX}px;`
+          ]"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
@@ -837,14 +844,25 @@
       }
     }
 
-    .current-time-line {
-      width: 2px;
+    .current-time-line-box {
       height: calc(100% + 16px); // beats
+      min-width: 150%;
       position: absolute;
       margin: auto;
       top: -16px;
-      background-color: var(--color-current-time-line-main);
+      left: 0;
       z-index: 2;
+      overflow: hidden;
+      pointer-events: none;
+
+      .current-time-line {
+        width: 2px;
+        height: calc(100% + 16px); // beats
+        position: absolute;
+        margin: auto;
+        top: -16px;
+        background-color: var(--color-current-time-line-main);
+      }
     }
   }
 </style>
