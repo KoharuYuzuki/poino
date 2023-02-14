@@ -15,6 +15,15 @@
       window.addEventListener('changeEditor', () => {
         this.editor = (this.editor === 'text') ? 'pianoroll' : 'text'
       })
+
+      Array.from(document.querySelectorAll('button'))
+      .forEach((button) => {
+        button.addEventListener('keydown', (event) => {
+          if (event.code === 'Space') {
+            event.preventDefault()
+          }
+        })
+      })
     },
     data(): {
       text: Text | undefined
