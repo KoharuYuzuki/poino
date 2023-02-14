@@ -451,7 +451,7 @@
       },
       currentTimeMs() {
         if (!this.currentTimeMs) return
-        if (!this.player || this.player.paused) return
+        if (!this.player) return
 
         const pianoRoll = this.$refs.pianoRoll as HTMLElement
         const roll = this.$refs.roll as HTMLElement
@@ -460,10 +460,15 @@
         const adjustTimes = this.adjustTimesX
         const left = this.currentTimeMs * times * adjustTimes
 
-        pianoRoll.scrollTo({
-          left: (left >= widthHalf) ? (left - widthHalf) : 0,
-          behavior: 'instant' as any
-        })
+        if (!this.player.paused) {
+          pianoRoll.scrollTo({
+            left: (left >= widthHalf) ? (left - widthHalf) : 0,
+            behavior: 'instant' as any
+          })
+        }
+
+        const currentTimeLine = this.$refs.currentTimeLine as HTMLElement
+        currentTimeLine.style.left = `${left}px`
       }
     }
   }
@@ -600,9 +605,7 @@
       >
         <div
           class="current-time-line"
-          v-bind:style="[
-            `left: ${currentTimeMs * pianoRollTimesX * adjustTimesX}px;`
-          ]"
+          ref="currentTimeLine"
         ></div>
       </div>
     </div>
