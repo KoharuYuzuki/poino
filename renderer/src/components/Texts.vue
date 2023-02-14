@@ -37,12 +37,14 @@
 
       window.addEventListener('undo', () => {
         if (this.historyIndex <= 0) return
+        this.playing = false
         this.historyIndex--
         this.loadFromHistory()
       })
 
       window.addEventListener('redo', () => {
         if (this.historyIndex >= (this.history.length - 1)) return
+        this.playing = false
         this.historyIndex++
         this.loadFromHistory()
       })
