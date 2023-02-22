@@ -445,7 +445,7 @@ export class Synthesizer {
       return promise
     }, Promise.resolve([]))
 
-    return new Promise((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
       synthChain
       .then((waves) => {
         const waveLen = waves.reduce((sum, wave) => sum + wave.length, 0)
