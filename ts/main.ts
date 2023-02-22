@@ -23,6 +23,8 @@ const openjtalk    = new OpenJTalk(tmpDirPath, appDirPath)
 const vocieManager = new VocieManager(path.join(appDirPath, './voices'))
 const synthesizer  = new Synthesizer(tmpDirPath)
 
+const devMode = process.argv.includes('--DEV')
+
 let mainWindow: BrowserWindow
 let quitting = false
 
@@ -54,7 +56,15 @@ Promise.all([
     }
   })
 
-  win.loadFile('./renderer/dist/index.html')
+  let promise: Promise<void>
+
+  if (!devMode) {
+    promise = win.loadFile('./renderer/dist/index.html')
+  } else {
+    promise = win.loadURL('http://localhost:3000')
+  }
+
+  promise
   .then(() => {
     win.setTitle(`${appName} v${version}`)
   })
@@ -109,7 +119,7 @@ Promise.all([
   ])
   Menu.setApplicationMenu(menu)
 
-  if (process.argv.includes('--DEBUG')) {
+  if (devMode) {
     win.webContents.openDevTools()
   }
 
