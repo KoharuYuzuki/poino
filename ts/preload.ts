@@ -45,7 +45,7 @@ contextBridge.exposeInMainWorld('project', {
 })
 
 contextBridge.exposeInMainWorld('wav', {
-  export: (files: {name: string, path: string}) => {
+  export: (files: {name: string, data: string}[]) => {
     return ipc.send('wav:export', files)
   }
 })

@@ -307,7 +307,7 @@
         .then((filePaths) => {
           this.cacheFilePaths = filePaths
 
-          const files = toRaw(this.cacheFilePaths).map((filePath) => {
+          const promises = toRaw(this.cacheFilePaths).map(async (filePath) => {
             const filteredText = this.texts.filter((text) => text.cacheFile === filePath)
             const index = (filteredText.length > 0) ? this.texts.indexOf(filteredText[0]) + 1 : 0
             const text = (filteredText.length > 0) ? filteredText[0].text : '？？？'
@@ -318,10 +318,21 @@
 
             const fileName = `${('000' + index).slice(-3)}_${voiceName}_${(text.length < 10) ? text : text.slice(0, 9) + '…'}.wav`
 
-            return {name: fileName, path: filePath}
+            const fileData =
+              await fetch(filePath)
+              .then((res) => res.blob())
+              .then((blob) => blob.arrayBuffer())
+              .then((ab) => new Uint8Array(ab))
+              .catch(console.error)
+
+            return {name: fileName, data: fileData ? fileData : null}
           })
 
-          return (window as any).wav.export(files)
+          return Promise.all(promises)
+        })
+        .then((files) => {
+          const filtered = files.filter((file) => file.data !== null)
+          return (window as any).wav.export(filtered)
         })
         .catch(console.error)
         .finally(() => this.exporting = false)

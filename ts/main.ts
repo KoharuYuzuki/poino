@@ -514,16 +514,16 @@ ipc.on('wav:export', (files, reply) => {
   .then((fileOrDirPath) => {
     if (files.length > 1) {
       return Promise.all(files.map((file: any) => {
-        return fs.copyFile(
-          file.path,
-          path.join(fileOrDirPath, file.name)
+        return fs.writeFile(
+          path.join(fileOrDirPath, file.name),
+          file.data
         )
       }))
     } else {
       return Promise.all([
-        fs.copyFile(
-          files[0].path,
-          fileOrDirPath
+        fs.writeFile(
+          fileOrDirPath,
+          files[0].data
         )
       ])
     }
