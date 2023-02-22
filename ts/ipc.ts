@@ -1,4 +1,4 @@
-import { ipcMain as _ipcMain, ipcRenderer as _ipcRenderer, WebContents } from 'electron'
+import { ipcMain, ipcRenderer, WebContents } from 'electron'
 import { randomUUID } from 'crypto'
 
 type callback = (detail: any, replay: (detail?: any) => void) => void
@@ -27,13 +27,13 @@ class IpcEvent extends Event {
 }
 
 export class IPCMain extends EventTarget {
-  ipc:       typeof _ipcMain
+  ipc:       typeof ipcMain
   ids:       string[]
   callbacks: Callbacks
 
   constructor() {
     super()
-    this.ipc = _ipcMain
+    this.ipc = ipcMain
     this.ids = []
     this.callbacks = {}
 
@@ -78,13 +78,13 @@ export class IPCMain extends EventTarget {
 }
 
 export class IPCRenderer extends EventTarget {
-  ipc:       typeof _ipcRenderer
+  ipc:       typeof ipcRenderer
   ids:       string[]
   callbacks: Callbacks
 
   constructor() {
     super()
-    this.ipc = _ipcRenderer
+    this.ipc = ipcRenderer
     this.ids = []
     this.callbacks = {}
 
