@@ -1,7 +1,7 @@
 import { contextBridge } from 'electron'
-import { ipcRenderer } from './ipc'
+import { IPCRenderer } from './ipc'
 
-const ipc = new ipcRenderer()
+const ipc = new IPCRenderer()
 
 contextBridge.exposeInMainWorld('openjtalk', {
   run: (text: string, speed: number) => {

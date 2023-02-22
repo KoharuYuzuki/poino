@@ -26,7 +26,7 @@ class IpcEvent extends Event {
   }
 }
 
-export class ipcMain extends EventTarget {
+export class IPCMain extends EventTarget {
   ipc:       typeof _ipcMain
   ids:       string[]
   callbacks: Callbacks
@@ -77,7 +77,7 @@ export class ipcMain extends EventTarget {
   }
 }
 
-export class ipcRenderer extends EventTarget {
+export class IPCRenderer extends EventTarget {
   ipc:       typeof _ipcRenderer
   ids:       string[]
   callbacks: Callbacks

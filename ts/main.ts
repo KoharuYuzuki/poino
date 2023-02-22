@@ -2,7 +2,7 @@ import { app, BrowserWindow, dialog, Menu } from 'electron'
 import path from 'path'
 import fs from 'fs/promises'
 import { createHash } from 'crypto'
-import { ipcMain } from './ipc'
+import { IPCMain } from './ipc'
 import { KVS } from './kvs'
 import { OpenJTalk } from './openjtalk'
 import { VocieManager } from './voice'
@@ -17,7 +17,7 @@ const appDirPath = app.getAppPath()
 const projectSalt   = '89e69d32-ee4f-4bd9-9ba7-dc46cab8a719'
 let projectSavePath = ''
 
-const ipc          = new ipcMain()
+const ipc          = new IPCMain()
 const kvs          = new KVS(path.join(tmpDirPath, 'kvs.json'))
 const openjtalk    = new OpenJTalk(tmpDirPath, appDirPath)
 const vocieManager = new VocieManager(path.join(appDirPath, './voices'))
