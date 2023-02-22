@@ -101,6 +101,7 @@
     .dialog {
       width: 800px;
       height: 500px;
+      padding: 8px;
       border: 3px solid var(--color-line-sub);
       border-radius: 8px;
       background-color: var(--color-main);
