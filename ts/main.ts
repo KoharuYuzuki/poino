@@ -177,7 +177,7 @@ ipc.on('synth:run', ({
   if (filtered.length <= 0) return
 
   const voice = filtered[0]
-  let filePath: string | null
+  let data: Buffer | null = null
 
   const callback = (progress: number) => {
     ipc.send(mainWindow, 'synth:progress', progress)
@@ -192,9 +192,10 @@ ipc.on('synth:run', ({
     pitchMin,
     callback
   )
-  .then((_filePath) => filePath = _filePath as string)
+  .then((filePath) => fs.readFile(filePath))
+  .then((buffer) => data = buffer)
   .catch(console.error)
-  .finally(() => reply(filePath))
+  .finally(() => reply(data))
 })
 
 ipc.on('project:open', async (overwriteAlert, reply) => {

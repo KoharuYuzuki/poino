@@ -162,9 +162,13 @@ export class Text {
         Number(this.pitchMax),
         Number(this.pitchMin)
       )
-      .then((filePath: string | null) => {
-        if (filePath === null) return
-        this.cacheFile = filePath
+      .then((data: Uint8Array | null) => {
+        if (data === null) return Promise.reject('invalid data')
+        const blob = new Blob([data], {type: 'audio/wav'})
+        return URL.createObjectURL(blob)
+      })
+      .then((url: string) => {
+        this.cacheFile = url
         resolve(this.cacheFile)
       })
       .catch(reject)
