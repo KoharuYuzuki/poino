@@ -412,6 +412,13 @@ export class Synthesizer {
               prevOverlapLen = Math.round(this.sampleRate * (phoneme.overlapMs as number) / 1000)
             }
 
+            wave = wave.map((x) => {
+              if (Number.isNaN(x)) return 0
+              if (x > 1) return 0
+              if (x < -1) return 0
+              return x
+            })
+
             const data = this.numArr2uint8Arr(wave)
             return new Promise<Uint8Array>((resolve, reject) => {
               fs.writeFile(filePath, data)
@@ -451,13 +458,9 @@ export class Synthesizer {
         const waveLen = waves.reduce((sum, wave) => sum + wave.length, 0)
         const header = this.genWavHeader(waveLen)
 
-        const nanRemovedWaves = waves.map((wave) => {
-          return wave.map((x) => (Number.isNaN(x)) ? 0 : x)
-        })
-
         const wavData = [
           Uint8Array.from(header),
-          ...nanRemovedWaves
+          ...waves
         ]
 
         const filePath = path.join(this.tmpDir, `${randomUUID()}.tmp`)
