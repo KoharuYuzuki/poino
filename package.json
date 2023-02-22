@@ -5,12 +5,14 @@
   "author": "KoharuYuzuki",
   "main": "build/ts/main.js",
   "scripts": {
-    "start": "npx electron .",
-    "dev": "npm start -- --DEBUG",
+    "dev": "run-p ts:watch renderer:dev electron:dev",
     "build": "run-s ts:build renderer:build",
     "watch": "run-p ts:watch renderer:watch",
+    "electron:start": "npx electron .",
+    "electron:dev": "npm run electron:start -- --DEV",
     "ts:build": "npx tsc",
     "ts:watch": "npm run ts:build -- --watch",
+    "renderer:dev": "npm run dev --prefix renderer",
     "renderer:build": "npm run build --prefix renderer",
     "renderer:watch": "npm run watch --prefix renderer"
   },
