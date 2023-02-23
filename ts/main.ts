@@ -210,7 +210,6 @@ ipc.on('project:open', async (overwriteAlert, reply) => {
     }
   }
 
-
   dialog.showOpenDialog(mainWindow, {
     filters: [
       {
