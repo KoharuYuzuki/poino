@@ -73,12 +73,6 @@ ipc.on('project:redo', (_, reply) => {
   reply(null)
 })
 
-ipc.on('ust:decode', (binary, reply) => {
-  const decoder = new TextDecoder('shift-jis')
-  const decoded = decoder.decode(binary)
-  reply(decoded)
-})
-
 ipc.on('synth:progress', (progress, reply) => {
   window.dispatchEvent(new CustomEvent('synthProgress', {detail: progress}))
   reply(null)
