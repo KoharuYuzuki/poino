@@ -10,7 +10,7 @@
           this.timeoutId = null
         }
 
-        if (this.progress === 1) {
+        if (this.progress >= 1) {
           const delayTimeMs = 3000
           this.timeoutId = setTimeout(() => {
             this.progress = 0

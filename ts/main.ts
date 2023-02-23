@@ -171,7 +171,8 @@ ipc.on('synth:run', ({
   speed,
   volume,
   pitchMax,
-  pitchMin
+  pitchMin,
+  progressStep
 }, reply) => {
   const filtered = vocieManager.voices.filter((voice) => voice.id === voiceId)
   if (filtered.length <= 0) return
@@ -190,6 +191,7 @@ ipc.on('synth:run', ({
     volume,
     pitchMax,
     pitchMin,
+    progressStep,
     callback
   )
   .then((filePath) => fs.readFile(filePath))

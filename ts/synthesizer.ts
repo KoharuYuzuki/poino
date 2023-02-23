@@ -255,10 +255,12 @@ type label = {
 export class Synthesizer {
   tmpDir: string
   sampleRate: number
+  progressSum: number
 
   constructor(tmpDir: string) {
     this.tmpDir = tmpDir
     this.sampleRate = 48000
+    this.progressSum = 0
   }
 
   run(
@@ -268,6 +270,7 @@ export class Synthesizer {
     volume: number,
     pitchMax: number,
     pitchMin: number,
+    progressStep: number,
     progressCallback: Function | null = null
   ) {
     labels.forEach((label) => {
@@ -301,7 +304,11 @@ export class Synthesizer {
         .catch(() => {})
         .then((stats) => {
           progressCounter++
-          if (progressCallback) progressCallback(progressCounter / labels.length)
+          this.progressSum += 1 / labels.length * progressStep
+          if (progressCallback) progressCallback(this.progressSum)
+          if (this.progressSum >= 1) {
+            this.progressSum = 0
+          }
 
           if (stats && stats.isFile()) {
             return new Promise<Uint8Array>((resolve, reject) => {
@@ -477,6 +484,7 @@ export class Synthesizer {
       })
       .catch(reject)
       .finally(() => {
+        if (progressStep !== 1) return
         if (progressCallback) progressCallback(1)
       })
     })

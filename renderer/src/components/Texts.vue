@@ -167,11 +167,18 @@
         const texts = (all ? this.texts : [this.text as Text])
         this.synthesizing = true
 
+        const filtered = texts.filter((text) => text.labels.length > 0)
+        const noCacheTextLen = filtered.filter((text) => !text.cacheFile).length
+        const progressStep = 1 / noCacheTextLen
+
         Promise.all(
-          texts
-          .filter((text) => text.labels.length > 0)
+          filtered
           .map((text) => {
-            return text.cacheFile ? Promise.resolve(text.cacheFile) : text.text2voice()
+            return (
+              text.cacheFile ?
+              Promise.resolve(text.cacheFile) :
+              text.text2voice(progressStep)
+            )
           })
         )
         .then((filePaths) => {
@@ -294,14 +301,23 @@
         if (this.exporting) return
         this.exporting = true
 
-        Promise.all(
+        const filtered =
           (
             (all) ? this.texts :
             (this.text) ? [this.text] : []
           )
           .filter((text) => text.labels.length > 0)
+        const noCacheTextLen = filtered.filter((text) => !text.cacheFile).length
+        const progressStep = 1 / noCacheTextLen
+
+        Promise.all(
+          filtered
           .map((text) => {
-            return text.cacheFile ? Promise.resolve(text.cacheFile) : text.text2voice()
+            return (
+              text.cacheFile ?
+              Promise.resolve(text.cacheFile) :
+              text.text2voice(progressStep)
+            )
           })
         )
         .then((filePaths) => {

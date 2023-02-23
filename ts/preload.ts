@@ -22,7 +22,8 @@ contextBridge.exposeInMainWorld('synth', {
     speed: number,
     volume: number,
     pitchMax: number,
-    pitchMin: number
+    pitchMin: number,
+    progressStep: number
   ) => {
     return ipc.send('synth:run', {
       labels,
@@ -30,7 +31,8 @@ contextBridge.exposeInMainWorld('synth', {
       speed,
       volume,
       pitchMax,
-      pitchMin
+      pitchMin,
+      progressStep
     })
   }
 })

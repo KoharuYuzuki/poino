@@ -152,7 +152,7 @@ export class Text {
     .catch(console.error)
   }
 
-  text2voice() {
+  text2voice(progressStep: number = 1) {
     return new Promise<string>((resolve, reject) => {
       (window as any).synth.run(
         toRaw(this.labels),
@@ -160,7 +160,8 @@ export class Text {
         Number(this.speed),
         Number(this.volume),
         Number(this.pitchMax),
-        Number(this.pitchMin)
+        Number(this.pitchMin),
+        progressStep
       )
       .then((data: Uint8Array | null) => {
         if (data === null) return Promise.reject('invalid data')
