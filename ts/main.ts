@@ -359,7 +359,7 @@ ipc.on('project:open', async (overwriteAlert, reply) => {
       })
 
       project = [{
-        text:     '<試験機能> 注意: テキストやパラメーターを変更しないでください',
+        text:     '',
         labels:   labels,
         speed:    1.0,
         volume:   0.5,
