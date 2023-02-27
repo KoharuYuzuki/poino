@@ -294,8 +294,6 @@ export class Synthesizer {
       }
     }
 
-    let progressCounter = 0
-
     const promises = labels.map((label) => {
       return new Promise<Uint8Array>((resolve, reject) => {
         const filePath = path.join(this.tmpDir, `${label.id}.tmp`)
@@ -303,7 +301,6 @@ export class Synthesizer {
         fs.lstat(filePath)
         .catch(() => {})
         .then((stats) => {
-          progressCounter++
           this.progressSum += 1 / labels.length * progressStep
           if (progressCallback) progressCallback(this.progressSum)
           if (this.progressSum >= 1) {
