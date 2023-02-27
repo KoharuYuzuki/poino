@@ -256,7 +256,7 @@ export class OpenJTalk {
       }
 
       const dicDirPath   = path.join(this.appDir, './openjtalk/open_jtalk_dic_utf_8-1.11')
-      const htsFilePath  = path.join(this.appDir, './openjtalk/hts_voice_nitech_jp_atr503_m001-1.05/nitech_jp_atr503_m001.htsvoice')
+      const htsFilePath  = path.join(this.appDir, './openjtalk/mei/mei_normal.htsvoice')
       const logFilePath  = path.join(this.tmpDir, `${randomUUID()}.tmp`)
       const textFilePath = path.join(this.tmpDir, `${randomUUID()}.tmp`)
 
