@@ -30,7 +30,7 @@
     "files": [
       "./build/openjtalk/*",
       "./build/ts/*",
-      "./openjtalk/hts_voice_nitech_jp_atr503_m001-1.05/*",
+      "./openjtalk/mei/*",
       "./openjtalk/open_jtalk_dic_utf_8-1.11/*",
       "./renderer/dist/*",
       "./renderer/dist/assets/*",
