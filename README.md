@@ -13,10 +13,10 @@ $ git clone https://github.com/KoharuYuzuki/poino.git
 $ cd poino
 ```
 
-2. Dictionary for Open JTalk version 1.11 (UTF-8) と HTS voice version 1.05 をダウンロード・展開し、次の場所に配置します。
+2. Dictionary for Open JTalk version 1.11 (UTF-8) と HTS Voice "Mei" version 1.5 をダウンロード・展開し、次の場所に配置します。
 ```
 ./openjtalk/open_jtalk_dic_utf_8-1.11
-./openjtalk/hts_voice_nitech_jp_atr503_m001-1.05
+./openjtalk/mei
 ```
 
 3. [openjtalk-wasm](https://github.com/KoharuYuzuki/openjtalk-wasm)をビルドし、openjtalk.jsとopenjtalk.wasmを次の場所に配置します。
