@@ -80,6 +80,10 @@ function envelope2wave (
   const data: number[] = new Array(bufferSize).fill(0)
   const freqs = fftfreq(bufferSize, 1.0 / sampleRate)
 
+  if (freqs.length <= 0) {
+    return data
+  }
+
   for (let i = 0; i < newXList.length; i++) {
     const x     = newXList[i]
     const y     = formants[i]
