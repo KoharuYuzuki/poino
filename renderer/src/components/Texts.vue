@@ -164,23 +164,26 @@
           return
         }
 
-        const texts = (all ? this.texts : [this.text as Text])
         this.synthesizing = true
 
-        const filtered = texts.filter((text) => text.labels.length > 0)
-        const noCacheTextLen = filtered.filter((text) => !text.cacheFile).length
-        const progressStep = 1 / noCacheTextLen
+        Promise.all(this.texts.map((text) => text.promises).flat())
+        .then(() => {
+          const texts = (all ? this.texts : [this.text as Text])
+          const filtered = texts.filter((text) => text.labels.length > 0)
+          const noCacheTextLen = filtered.filter((text) => !text.cacheFile).length
+          const progressStep = 1 / noCacheTextLen
 
-        Promise.all(
-          filtered
-          .map((text) => {
-            return (
-              text.cacheFile ?
-              Promise.resolve(text.cacheFile) :
-              text.text2voice(progressStep)
-            )
-          })
-        )
+          return Promise.all(
+            filtered
+            .map((text) => {
+              return (
+                text.cacheFile ?
+                Promise.resolve(text.cacheFile) :
+                text.text2voice(progressStep)
+              )
+            })
+          )
+        })
         .then((filePaths) => {
           this.cacheFilePaths = filePaths
           if (this.cacheFilePaths.length <= 0) {

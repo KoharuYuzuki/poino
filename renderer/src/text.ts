@@ -110,6 +110,7 @@ export class Text {
   pitchMin:  number
   voiceId:   string
   cacheFile: string
+  promises:  Promise<any>[]
 
   constructor(
     voice: Voice,
@@ -131,13 +132,14 @@ export class Text {
     this.pitchMin  = (pitchMin >= 0) ? pitchMin : -voice.pitch.min
     this.voiceId   = voice.id
     this.cacheFile = ''
+    this.promises  = []
   }
 
   text2label() {
     const text = this.text.replace(new RegExp('(\\r\\n|\\n|\\r)', 'gm'), ' ')
     const speed = Number(this.speed)
 
-    ;(window as any).openjtalk.run(text, speed)
+    const promise = (window as any).openjtalk.run(text, speed)
     .then((labels: any[][] | null) => {
       if (labels === null) return
       this.labels = labels.flat().map((label) => {
@@ -150,6 +152,11 @@ export class Text {
       window.dispatchEvent(new Event('updateProject'))
     })
     .catch(console.error)
+    .finally(() => {
+      this.promises = this.promises.filter((_promise) => _promise !== promise)
+    })
+
+    this.promises.push(promise)
   }
 
   text2voice(progressStep: number = 1) {
