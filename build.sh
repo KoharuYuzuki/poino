@@ -14,6 +14,8 @@ cp -f "$CURRENT_DIR/openjtalk/openjtalk.wasm" "$BUILD_DIR/openjtalk/openjtalk.wa
 
 "$CURRENT_DIR/convert_icon.sh"
 
+export CSC_IDENTITY_AUTO_DISCOVERY=false
+
 npx electron-builder --mac --arm64 --x64
 npx electron-builder --win --arm64 --x64
 
